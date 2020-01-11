@@ -11,8 +11,19 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
-  
-footer {
+
+.icon:hover{
+    cursor: pointer;
+    font-size: 32px;
+}
+.icon{
+    float:left;
+    font-size: 28px;
+    text-align:center;
+}
+
+
+footer2 {
     margin: 50px 0;
 }
 
