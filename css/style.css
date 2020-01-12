@@ -14,12 +14,9 @@ body {
 
 .icon:hover{
     cursor: pointer;
-    font-size: 32px;
 }
 .icon{
-    float:left;
     font-size: 28px;
-    text-align:center;
 }
 
 
