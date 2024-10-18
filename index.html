@@ -1,317 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <title>Austin Puzzle Exchange</title>
     <meta name="description" content="A community puzzle exchange in Austin to swap jigsaw puzzles and encourage a love of puzzles">
-    <meta name="author" content="Harder.DEV">
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Austin Puzzle Exchange">
-	<meta name="twitter:site" contsent="@AustinPuzzles">
-	<meta name="twitter:description" content="A community puzzle exchange in Austin to swap jigsaw puzzles and encourage a love of puzzles">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Puzzle&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Austin Puzzles" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="canonical" href="https://austinpuzzles.com">
 	<meta property="og:title" content="Austin Puzzle Exchange" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://austinpuzzles.com/" />
 	<meta property="og:description" content="A community puzzle exchange in Austin to swap jigsaw puzzles and encourage a love of puzzles" />
-
-    <title>Austin Puzzle Exchange</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="canonical" href="https://austinpuzzles.com">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/dd06edf683.js" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93562-10"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-93562-10');
-    </script>
+    <meta name="author" content="Harder.DEV">
 </head>
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Austin Puzzle Exchange</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="#howitworks">How It Works</a></li>
-                <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
-                <li class="nav-item"><a class="nav-link" href="#locations">Locations</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            </ul>
+    <header>
+        <div class="container header-container">
+            <div class="header-top">
+                <div class="logo">
+                    <a href="#home"><img src="images/logo-min.png" alt="Austin Puzzles Logo"></a>
+                    <h1>Welcome to the Austin Puzzle Exchange</h1>
+                </div>
+                <div class="header-social-icons">
+                    <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on X">
+                        <img src="images/twitter.png" alt="Twitter" title="Twitter">
+                    </a>
+                    <a href="https://www.facebook.com/atxpuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on Facebook">
+                        <img src="images/facebook.png" alt="Facebook" title="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com/austinpuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on Instagram">
+                        <img src="images/instagram.png" alt="Instagram" title="Instagram">
+                    </a>
+                    <a href="https://www.threads.net/@austinpuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on Threads">
+                        <img src="images/threads.png" alt="Threads" title="Threads">
+                    </a>
+                </div>
+            </div>
+            <nav aria-label="Main Navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#news">News</a></li>
+                    <li><a href="#guidelines">Guidelines</a></li>
+                    <li><a href="#locations">Exchange Locations</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <main role="main">
-
-    <div class="jumbotron jumbotron-fluid header">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
         <div class="container">
-            <ul class="nav justify-content-end">
-                <li class="nav-item"><a href="https://twitter.com/AustinPuzzles"><i class="icon fab fa-twitter-square mr-2" title="Follow @AustinPuzzles on Twitter"></i></a></li>
-                <li class="nav-item"><a href="https://www.facebook.com/atxpuzzles/"><i class="icon fab fa-facebook-square" title="Follow Austin Puzzles on Facebook"></i></a></li>
-            </ul>
-            <h1 class="display-4">Austin Puzzle Exchange</h1>
-            <p class="lead">Exchange Puzzles with your Neighbors... easy, free, local, fun!</p>
+            <h2>Connecting Austin's Puzzle Enthusiasts</h2>
+            <div class="hero-text-blocks">
+                <p>Explore, swap, and enjoy puzzles with your community.</p>
+                <p>Share your love of puzzles and enjoy new challenges without the cost.</p>
+            </div>
+            <a href="#locations" class="btn">Find a location</a>
         </div>
+    </section>
+
+    <div class="news-newsletter-wrapper">
+        <!-- News Section -->
+        <section class="news" id="news">
+            <div class="container">
+                <h2>Latest Updates</h2>
+                <div id="x-feed">
+                    <a class="twitter-timeline" data-tweet-limit="2" data-chrome="noheader nofooter noborders noscrollbar" data-lang="en" data-theme="light" href="https://twitter.com/microsoft?ref_src=twsrc%5Etfw">X Posts from @AustinPuzzles</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter" id="newsletter">
+            <div class="container">
+                <h2>Email List</h2>
+                <div class="email-form">
+                <h3>Sign up for the Austin Puzzle Exchange email list</h3>
+                <p>No spam - just occasional info on the exchange. It is completely optional, but highly encouraged in the event that we need to track down a puzzle.</p>
+                <form id="signup-form" action="https://docs.google.com/forms/d/e/1FAIpQLSf6TGE4nLhHDGZrEUIFx72-XtG33YBgAFTUDOxWS6i-UQrWIA/formResponse" method="POST" target="_blank" aria-label="Newsletter Signup Form">
+                    <label for="entry_157474186">Email address</label>
+                    <input type="email" id="entry_157474186" name="entry.157474186" value="" dir="auto" aria-label="Email address - Must be a valid email address" aria-required="true" required placeholder="Enter your email" title="Must be a valid email address">
+                    <input type="hidden" name="draftResponse" value="[,,&quot;-1282397924495112482&quot;]">
+                    <input type="hidden" name="pageHistory" value="0">
+                    <input type="hidden" name="fbzx" value="-1282397924495112482">
+                    <button type="submit" name="submit" class="btn">Subscribe</button>
+                </form>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-sm-12">
-                <a name="howitworks"></a>
-                <h2 class="text-info"><i class="fas fa-puzzle-piece"></i> How It Works</h2>
+    <!-- Guidelines -->
+    <section class="guidelines" id="guidelines">
+        <div class="container">
+            <h2>Guidelines</h2>
+            <div class="guidelines-content">
+                <div class="guideline">
+                    <h3>New Puzzles</h3>
+                    <p>Thank you for sharing new puzzles with your neighbors! We encourage you to add a log sheet inside the puzzle box with your name. It's optional but fun to track where it's been, and helpful if you want to get your puzzle back someday.
+                    There are usually printed copies in the bin, or you can <a href="files/PuzzleExchangeLog.pdf" target="_blank">print one here</a>.</p>
+                </div>
+                <div class="guideline">
+                    <h3>Be Considerate</h3>
+                    <p>Please be considerate and don't borrow more than you'll be able to work on at once. You can keep the puzzle for as long as you need to complete it, but be mindful of others. If you don't have time in the near future, bring it back for others to enjoy.</p>
+                </div>
+                <div class="guideline">
+                    <h3>Complete Puzzles</h3>
+                    <p>Puzzles should have all the pieces. If a piece is missing, please note it on the log and notify us or the original owner so they can take it out of circulation.</p>
+                </div>
+                <div class="guideline">
+                    <h3>Returning Puzzles</h3>
+                    <p>Please ensure all pieces are returned and sealed in the box. A ziplock bag is a good idea if the box doesn't close tightly, so pieces won't fall out. You can optionally sign the log sheet. If the log sheet is full, grab a new one and add it to the puzzle box with the original log.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <h4 class="card-subtitle mb-3 text-muted">It's easy!</h4>
-                        <p class="card-text">
-                            <ol>
-                                <li class="mb-2">
-                                    Go to an exchange location (<a href="#locations">see locations</a>).
-                                </li>
-                                <li class="mb-2">
-                                    Borrow a puzzle and bring it back when you're done.
-                                </li>
-                                <li class="mb-2">
-                                    Leave a puzzle in the bin to circulate if you want. Add a puzzle log inside it with your name.
-                                </li>
-                                <li class="mb-2">
-                                    Optionally, sign the log in the puzzle box before returning your puzzle. It's fun to see where &amp; when puzzles are used!
-                                </li>
-                                <li class="mb-2">
-                                    Enjoy new puzzles without the cost!
-                                </li>
-                            </ol>
-                        </p>
+    <!-- Exchange Locations -->
+    <section class="locations" id="locations">
+        <div class="container">
+            <h2>Exchange Locations</h2>
+            <div class="location-grid">
+                <!-- Location 1 -->
+                <div class="location-item">
+                    <h3>Southwest Austin</h3>
+                    <address>
+                        6302 Salcon Cliff<br>
+                        Austin, TX 78749<br>
+                        <a href="https://goo.gl/maps/H8kiKKnJsuKpNDvk9">Get Directions</a>
+                    </address>
+                    <p><a href="mailto:info@austinpuzzles.com">Email Us</a></p>
+                    <p><strong>Schedule:</strong> Puzzles are available almost every day at any reasonable time. We occasionally bring the bins inside during inclement weather. Come by when it's convenient for you!</p>
+                    <p><strong>Details:</strong> There are large plastic bins full of puzzles on the covered front porch. You don't need to ring the doorbell unless you have a question.</p>
+                    <img src="images/swaustin-puzzle-swap1.jpg" alt="Southwest Austin Puzzle Swap" class="puzzle-swap-image" loading="lazy">
+                </div>
+                <!-- Location 2 -->
+                <div class="location-item">
+                    <h3>NW Hills Puzzle Swap</h3>
+                    <address>
+                        7005 Northledge Dr<br>
+                        Austin, TX 78731<br>
+                        <a href="https://goo.gl/maps/KWDD8ZGRuWJi1GdNA">Get Directions</a>
+                    </address>
+                    <p><a href="mailto:anderson@bluebonnetcircle.org">Email Us</a></p>
+                    <p><strong>Schedule:</strong> 24/7 community access, in front of Doss Elementary.</p>
+                    <p><strong>Details:</strong> All are welcome to participate in the community puzzle exchange. Inside the storage bench are plastic bins of puzzles. Please keep the lids closed to protect from weather. Founded as a Girl Scout Silver Award project.</p>
+                    <img src="images/nwhills-puzzle-swap-tn.jpg" alt="NW Hills Puzzle Swap" class="puzzle-swap-image" loading="lazy">
+                </div>
+                <!-- Future Locations -->
+                <div class="location-item">
+                    <h3>Future Locations</h3>
+                    <p>Are you interested in hosting a puzzle exchange in the Austin area?</p>
+                    <p>We would love to have additional locations around Central Texas!</p>
+                    <p>Contact <a href="mailto:info@austinpuzzles.com">info@austinpuzzles.com</a> to get added!</p>
+                    <img src="images/help-wanted.png" alt="Help Wanted" class="help-wanted-image" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About the Austin Puzzle Exchange -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About the Austin Puzzle Exchange</h2>
+            <img src="images/couple.jpg" alt="Austin Puzzle Exchange Members" class="about-image" loading="lazy">
+            <p>The Austin Puzzle Exchange is a neighborhood puzzle swap that builds community and encourages a love of puzzles. We conceived this idea after doing many puzzles with our family and realizing we needed a cost-effective way to enjoy new puzzles. Sharing with neighbors was the perfect solution!</p>
+            <p>Our exchange has <a href="https://amzn.to/2QJnAmf">jigsaw puzzles</a> of all sizes (from <a href="https://amzn.to/35F0i57">child-friendly</a> to 5,000 pieces), as well as some other types such as <a href="https://amzn.to/2FDU8HR">3-D puzzles</a>.</p>
+            <p>In 2020, we created a new website at <a href="https://austinpuzzles.com">AustinPuzzles.com</a> to encourage other puzzlers around Austin to host free puzzle exchanges. The second location was established in fall 2021 by Girl Scout Troop 1183 in the NW Hills neighborhood.</p>
+            <p>It's similar to <a href="https://littlefreelibrary.org/" target="_blank">Little Free Libraries</a> (which we also love). Puzzles are expensive to buy new but last a long time, and many of us enjoy the challenge of a new (to us) puzzle instead of one we've already completed. It's also a great way to contribute to your community!</p>
+            <p>Happy puzzling!<br/>
+            - Christina and Kevin Harder</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo2.jpg" alt="Austin Puzzle Exchange">
+                </div>
+                <div class="footer-contact">
+                    <h3>Follow us on social media</h3>
+                    <div class="social-icons">
+                        <div>
+                            <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" title="Twitter"></a>
+                            <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener">Twitter / X</a>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/atxpuzzles" target="_blank" rel="noopener"><img src="images/facebook.png" alt="Facebook" title="Facebook"></a>
+                            <a href="https://www.facebook.com/atxpuzzles" target="_blank" rel="noopener">Facebook</a>
+                        </div>
+                        <div>
+                            <a href="https://www.instagram.com/austinpuzzles" target="_blank" rel="noopener"><img src="images/instagram.png" alt="Instagram" title="Instagram"></a>
+                            <a href="https://www.instagram.com/austinpuzzles" target="_blank" rel="noopener">Instagram</a>
+                        </div>
+                        <div>
+                            <a href="https://www.threads.net/@austinpuzzles" target="_blank" rel="noopener"><img src="images/threads.png" alt="Threads" title="Threads"></a>
+                            <a href="https://www.threads.net/@austinpuzzles" target="_blank" rel="noopener">Threads</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-7">
-                <div class="card bg-light mb-2">
-                    <h5 class="card-header">Guidelines</h5>
-                    <div class="card-body">
-                        <ul>
-                            <li>
-                                <em>New puzzles:</em> Thank you for sharing new puzzles with your neighbors! We encourage you to add a log sheet inside the puzzle box or bag with your name. It is optional, but it’s fun tracking where it’s been, and can be helpful if you want to get your puzzle back again some day. There are usually printed copies in the bin, or you can <a href="files/PuzzleExchangeLog.pdf" target="_blank">print one here</a>.
-                            </li>
-                            <li>
-                                Please be considerate, and don't borrow more than you will be able to work on at once. You can keep the puzzle for as long as you need to get it completed, but be nice to neighbors. If you don't have time in the near future, bring it back for others to use.
-                            </li>
-                            <li>
-                                Puzzles should have all the pieces. If a piece is missing, please note it on the log and notify us or the original owner so they can take it out of circulation.
-                            </li>
-                            <li>
-                                <em>Returning puzzles:</em> Please ensure all of the pieces are returned and sealed in the box. A ziploc bag is a good idea if the box does not close tightly, so that they won’t fall out. You can optionally sign the log sheet. If the log sheet is full, grab a new one and add it to the puzzle box with the original log.
-                            </li>
-                        </ul>
+                <div class="footer-links">
+                    <div class="footer-email">
+                        <h3>Contact Us</h3>
+                        <p class="email"><img src="images/email.png" alt="Email" title="Instagram"><a href="mailto:info@austinpuzzles.com">info@austinpuzzles.com</a></p>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a name="news"></a>
-                <hr />
-                <h2 class="text-info"><i class="fas fa-puzzle-piece"></i> Latest News</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <a class="twitter-timeline" href="https://twitter.com/AustinPuzzles?ref_src=twsrc%5Etfw" data-tweet-limit="3" data-chrome="nofooter">Tweets by AustinPuzzles</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card bg-light text-center mb-2">
-                    <h5 class="card-header">Email List</h5>
-                    <div class="card-body">
-                        <p class="lead">Sign up for the Austin Puzzle Exchange email list!</p>
-                        <p>
-                            No spam - just occasional info on the puzzle exchange. It is completely optional, but highly encouraged in the event that we need to track down a puzzle.
-                        </p>
-                        <form action="https://docs.google.com/forms/d/e/1FAIpQLSf6TGE4nLhHDGZrEUIFx72-XtG33YBgAFTUDOxWS6i-UQrWIA/formResponse" method="POST" target="_blank" onsubmit="">
-                            <label for="entry_157474186">Email address</label>
-                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                            <input type="email" name="entry.157474186" value="" dir="auto" aria-label="Email address  Must be a valid email address" aria-required="true" required title="Must be a valid email address">
-                            <input type="hidden" name="draftResponse" value="[,,&quot;-1282397924495112482&quot;]">
-                            <input type="hidden" name="pageHistory" value="0">
-                            <input type="hidden" name="fbzx" value="-1282397924495112482">
-                            <input type="submit" name="submit" value="Submit">
-                        </form>
-                    </div>
-                </div>
-                <div class="alert alert-info" role="alert">
-                    Or <a href="https://twitter.com/AustinPuzzles">follow @AustinPuzzles on Twitter</a> to get updates.
-                </div>
-		<!-- 
-                <div id="amzn-assoc-ad-f5c88b0e-88b6-45cc-951d-54c3953bb133"></div>
-                <script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=f5c88b0e-88b6-45cc-951d-54c3953bb133"></script>
-		-->
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a name="locations"></a>
-                <hr />
-                <h2 class="text-info"><i class="fas fa-puzzle-piece"></i> Exchange Locations</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-2 col-md-3">
-                <h5>Name</h5>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <h5>Location &amp; Contact</h5>
-            </div>
-            <div class="col-lg-3 col-md-5">
-                <h5>Schedule</h5>
-            </div>
-            <div class="col-lg-2 col-md-5">
-                <h5>Details</h5>
-            </div>
-            <div class="col-lg-3 col-md-3">
-                <h5>Picture</h5>
-            </div>
-        </div>                
-        <div class="row bg-light">
-            <div class="col-lg-2 col-md-3 text-success">
-                <h6>Southwest Austin</h6>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <address>
-                    6302 Salcon Cliff<br>
-                    Austin, TX 78749<br>
-                </address>
-                <p><a href="https://goo.gl/maps/H8kiKKnJsuKpNDvk9">Directions</a><br></p>
-                <p><a href="mailto:info@austinpuzzles.com">Email</a></p>
-            </div>
-            <div class="col-lg-2 col-md-5">
-                <p>Puzzles are available almost every day at any reasonable time. We will occasionally bring the bins inside when there's inclement weather. Come by when it is convenient for you!</p>
-            </div>
-            <div class="col-lg-2 col-md-5">
-                <p>There are two large, labeled, plastic bins full of puzzles on the covered front porch. You do not need to ring the doorbell unless you have a question.</p>
-            </div>
-            <div class="col-lg-3 col-md-3">
-		<img src="/img/swaustin-puzzle-swap1.jpg" width="300" height="227" border="0" alt="Southwest Austin Puzzle Swap" />
-            </div>
-        </div>                
-        <div class="row">
-            <div class="col-lg-2 col-md-3 text-success">
-		<h6>NW Hills Puzzle Swap</h6>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <address>
-                    7005 Northledge Dr<br>
-                    Austin, TX 78731<br>
-                </address>
-                <p><a href="https://goo.gl/maps/KWDD8ZGRuWJi1GdNA">Directions</a><br></p>
-                <p><a href="mailto:anderson@bluebonnetcircle.org">Email</a></p>
-            </div>
-            <div class="col-lg-2 col-md-5">
-                <p>24/7 community access, in front of Doss Elementary</p>
-            </div>
-            <div class="col-lg-2 col-md-5">
-                <p>All are welcome to participate in the community puzzle exchange. Inside the storage bench are plastic bins of puzzles. Please keep the lids closed to protect from weather. Founded as a Girl Scout Silver Award project.</p>
-            </div>
-            <div class="col-lg-3 col-md-3">
-		<img src="/img/nwhills-puzzle-swap-tn.jpg" width="300" height="302" border="0" alt="NW Hills Puzzle Swap" />
-            </div>
-        </div>                
-        <div class="row bg-light mt-2">
-            <div class="col-md-2 text-success">
-                <h6>Future Locations</h6>
-            </div>
-            <div class="col-md-10 text-center">
-                <p>Are you interested in hosting an additional exchange location in the Austin area?<br />
-                Contact <a href="mailto:info@austinpuzzles.com">info@austinpuzzles.com</a> to get added!</p>
-            </div>
-        </div>
-  
-        <div class="row">
-            <div class="col-md-12">
-                <a name="about"></a>
-                <hr />
-                <h2 class="text-info"><i class="fas fa-puzzle-piece"></i> About the Austin Puzzle Exchange</h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-9">
-                <p>
-                    The Austin Puzzle Exchange is a neighborhood puzzle swap that builds community and encourages a love of puzzles. We conceived of this idea after doing many puzzles with our family. We quickly realized to keep this up we would have to buy new puzzles every week. That could really add up over time! So, how does our family get new puzzles on a budget? Sharing with neighbors of course! Hence the neighborhood Southwest Austin Puzzle Exchange was born in 2017.
-                </p>
-                <p>
-                    In 2020 we created a new web site at <a href="https://austinpuzzles.com">AustinPuzzles.com</a> and are encouraging other puzzlers around Austin to host free puzzle exchanges to share and swap puzzles. The second location was created in fall 2021 by Girl Scout Troop 1183, located in the NW Hills neighborhood in Austin.
-                </p>
-                <p>
-		    It's a similar idea to <a href="https://littlefreelibrary.org/" target="_blank">Little Free Libraries</a> (which we also love). Puzzzles are expensive to buy new but last a long time, and many of us enjoy the challenge of a new (to us) puzzle instead of one we've already done. It's also a great way to contribute to your community! 
-                </p>
-                <p>
-                    Happy puzzling!!!<br />
-                    - Christina and Kevin Harder
-                </p>
-            </div>
-            <div class="col-md-3">
-                <h5 class="card-subtitle mb-2 text-muted">Types of Puzzles</h5>
-                <p>Our exchange has <a href="https://amzn.to/2QJnAmf">jigsaw puzzles</a> of all sizes (from <a href="https://amzn.to/35F0i57">child-friendly</a>  to 5,000 pieces), as well as some other types such as <a href="https://amzn.to/2FDU8HR">3-D puzzles</a>.</p>
-            </div>
-        </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="container bg-light">
-            <div class="row">
-                <div class="col-sm-12 pt-2 pb-2 text-center">
-                    <img src="img/logo-austin.png" alt="Austin" title="Austin" />
-                    <img src="img/logo-puzzle.png" alt="Puzzle" title="Puzzle" />
-                    <img src="img/logo-exchange.png" alt="Exchange" title="Exchange" />
-                </div>
-            </div>
-                <div class="row">
-                <div class="col-sm-5 text-dark">
-                    <div class="pt-2 pb-2">
-                        <p>Copyright &copy; Christina &amp; Kevin Harder 2021</span><br />
-                        Site designed by <a href="https://harder.dev" target="_blank">Harder.DEV</a></p>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <ul class="nav justify-content-center">
-                        <li class="nav-item"><a href="https://twitter.com/AustinPuzzles"><i class="icon fab fa-twitter-square mr-2" title="Follow @AustinPuzzles on Twitter"></i></a></li>
-                        <li class="nav-item"><a href="https://www.facebook.com/atxpuzzles/"><i class="icon fab fa-facebook-square" title="Follow Austin Puzzles on Facebook"></i></a></li>
+                    <h3>Credits</h3>
+                    <ul>
+                        <li>Created by <a href="https://kevinharder.com" target="_blank" title="Kevin Harder">Kevin Harder</a> and <a href="https://getchristina.com/" target="_blank" title="Christina Harder">Christina Harder</a></li>
+                        <li>Site designed by <a href="https://harder.dev" target="_blank" title="Harder.DEV">Harder.DEV</a></li>
+                        <li>&copy; 2024 Austin Puzzle Exchange. All rights reserved.</li>
                     </ul>
                 </div>
-                <div class="col-sm-5">
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item"><a class="nav-link" href="#howitworks">How It Works</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#locations">Locations</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                      </ul>
-                </div>
             </div>
-        </footer>
-
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>   
+        </div>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
