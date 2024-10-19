@@ -63,6 +63,7 @@ header {
     justify-content: space-between;
     align-items: flex-start;
     width: 100%; /* Take full width of the container */
+    position: relative; /* For positioning the menu toggle */
 }
 
 .logo {
@@ -100,6 +101,23 @@ header {
     transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
+/* Hamburger Menu Toggle */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    margin-left: 15px;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 25px;
+    background-color: var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+/* Navigation */
 nav {
     margin-top: 1px;
     width: 100%; /* Ensure nav takes full width for centering */
@@ -131,17 +149,95 @@ nav ul li a.active {
 }
 
 /* Mobile Menu */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
+@media (max-width: 768px) {
+    /* Show Hamburger Menu */
+    .menu-toggle {
+        display: flex;
+    }
 
-.menu-toggle .bar {
-    height: 3px;
-    width: 25px;
-    background-color: var(--secondary-color);
-    margin: 4px 0;
+    /* Hide the navigation menu by default */
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    /* When nav is active, display the menu */
+    nav.active ul {
+        display: flex;
+        background-color: var(--white);
+        position: absolute;
+        top: 60px; /* Adjust based on header height */
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+        border-top: 1px solid var(--accent-color);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    nav ul li a {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--accent-color);
+    }
+
+    /* Adjust header-top layout */
+    .header-top {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Reorder elements: Social Icons first, then H1 */
+    .header-social-icons {
+        order: 1;
+    }
+
+    .logo {
+        order: 2;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo h1 {
+        margin-top: 10px;
+    }
+
+    /* Adjust Hero Section on Mobile */
+    .hero-text-blocks {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-text-blocks p {
+        text-align: center;
+    }
+
+    /* News and Newsletter Wrapper on Mobile */
+    .news-newsletter-wrapper {
+        flex-direction: column;
+    }
+
+    .news, .newsletter {
+        flex: 1 1 100%;
+    }
+
+    /* Footer Adjustments for Mobile */
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .location-item {
+        width: 100%;
+    }
 }
 
 /* News and Newsletter Wrapper */
@@ -159,33 +255,12 @@ nav ul li a.active {
     padding: 10px;
 }
 
-.newsletter {
-    flex: 1 1 35%;
-    min-width: 200px;
-    padding: 10px;
-}
-
-.email-form {
-    background-color: var(--white);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px 10px;
-}
-
 .news h2, .newsletter h2 {
     font-family: var(--font-heading);
     font-size: 36px;
     color: var(--primary-color);
     text-align: center;
     margin-bottom: 10px;
-}
-
-.newsletter h3 {
-    font-family: var(--font-heading);
-    font-size: 18px;
-    color: #666666;
-    text-align: left;
-    margin-bottom: 5px;
 }
 
 .news #x-feed {
@@ -203,6 +278,27 @@ nav ul li a.active {
 }
 
 /* Newsletter Section */
+.newsletter {
+    flex: 1 1 35%;
+    min-width: 200px;
+    padding: 10px;
+}
+
+.email-form {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 10px;
+}
+
+.newsletter h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: #666666;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
 .newsletter p {
     font-size: 16px;
     margin-bottom: 30px;
@@ -483,7 +579,6 @@ footer .footer-content {
     background-color: var(--background-color);
     border: none;
     border-radius: 4px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -566,70 +661,7 @@ footer .footer-content {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    /* Mobile Menu */
-    nav ul {
-        display: none;
-        flex-direction: column;
-    }
+    /* Mobile Menu already handled above */
 
-    .menu-toggle {
-        display: flex;
-    }
-
-    nav.active ul {
-        display: flex;
-        background-color: var(--white);
-        position: absolute;
-        top: 70px;
-        right: 20px;
-        flex-direction: column;
-        width: 200px;
-        border: 1px solid var(--accent-color);
-        border-radius: 5px;
-    }
-
-    nav ul li {
-        margin: 0;
-    }
-
-    nav ul li a {
-        padding: 15px;
-        border-bottom: 1px solid var(--accent-color);
-    }
-
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .location-item {
-        width: 100%;
-    }
-
-    .hero h2 {
-        font-size: 36px;
-    }
-
-    .guidelines .guidelines-content {
-        flex-direction: column;
-    }
-
-    /* Responsive Hero Text Blocks */
-    .hero-text-blocks {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-text-blocks p {
-        text-align: center;
-    }
-
-    /* News and Newsletter Wrapper on Mobile */
-    .news-newsletter-wrapper {
-        flex-direction: column;
-    }
-
-    .news, .newsletter {
-        flex: 1 1 100%;
-    }
+    /* Additional responsive adjustments can be placed here if needed */
 }
