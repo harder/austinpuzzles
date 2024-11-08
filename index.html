@@ -31,6 +31,8 @@
 <body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8BJHK77"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v21.0&appId=736662015347417"></script>
     <header>
         <div class="container header-container">
             <div class="header-top">
@@ -39,9 +41,6 @@
                     <h1>Welcome to the Austin Puzzle Exchange</h1>
                 </div>
                 <div class="header-social-icons">
-                    <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on X">
-                        <img src="images/twitter.png" alt="Twitter" title="Twitter">
-                    </a>
                     <a href="https://www.facebook.com/atxpuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on Facebook">
                         <img src="images/facebook.png" alt="Facebook" title="Facebook">
                     </a>
@@ -50,6 +49,9 @@
                     </a>
                     <a href="https://www.threads.net/@austinpuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on Threads">
                         <img src="images/threads.png" alt="Threads" title="Threads">
+                    </a>
+                    <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener" aria-label="Austin Puzzles on X">
+                        <img src="images/twitter.png" alt="Twitter" title="Twitter">
                     </a>
                 </div>
                 <!-- Hamburger Menu Toggle -->
@@ -89,27 +91,31 @@
             <div class="container">
                 <h2>Latest Updates</h2>
                 <div id="x-feed">
-                    <a class="twitter-timeline" data-tweet-limit="2" data-chrome="noheader nofooter noborders noscrollbar" data-lang="en" data-theme="light" href="https://twitter.com/austinpuzzles?ref_src=twsrc%5Etfw">X Posts from @AustinPuzzles</a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <div class="fb-page" data-href="https://www.facebook.com/atxpuzzles" data-tabs="timeline" data-width="" data-height="500" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/atxpuzzles" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/atxpuzzles">Austin Puzzle Exchange</a></blockquote>
+                    </div>
                 </div>
-            </div>
+        </div>
         </section>
 
         <!-- Newsletter Section -->
         <section class="newsletter" id="newsletter">
             <div class="container">
-                <h2>Email List</h2>
+                <h2>Community</h2>
                 <div class="email-form">
-                <h3>Sign up for the Austin Puzzle Exchange email list</h3>
-                <p>No spam - just occasional info on the exchange. It is completely optional, but highly encouraged in the event that we need to track down a puzzle.</p>
-                <form id="signup-form" action="https://docs.google.com/forms/d/e/1FAIpQLSf6TGE4nLhHDGZrEUIFx72-XtG33YBgAFTUDOxWS6i-UQrWIA/formResponse" method="POST" target="_blank" aria-label="Newsletter Signup Form">
-                    <label for="entry_157474186">Email address</label>
-                    <input type="email" id="entry_157474186" name="entry.157474186" value="" dir="auto" aria-label="Email address - Must be a valid email address" aria-required="true" required placeholder="Enter your email" title="Must be a valid email address">
-                    <input type="hidden" name="draftResponse" value="[,,&quot;-1282397924495112482&quot;]">
-                    <input type="hidden" name="pageHistory" value="0">
-                    <input type="hidden" name="fbzx" value="-1282397924495112482">
-                    <button type="submit" name="submit" class="btn">Subscribe</button>
-                </form>
+                    <h3>Facebook Group</h3>
+                    <p>Join the <a href="https://www.facebook.com/groups/austinpuzzles" target="_blank" rel="noopener">Austin Puzzle Exchange Facebook Group</a> to discuss and ask questions in our community.</p>
+                    <a class="btn" href="https://www.facebook.com/groups/austinpuzzles" target="_blank" rel="noopener">Join the group</a>
+                    <h3>Sign up for the email list</h3>
+                    <p>No spam - just occasional info on the Austin Puzzle Exchange. It is completely optional, but encouraged in the event that we need to track down a puzzle.</p>
+                    <form id="signup-form" action="https://docs.google.com/forms/d/e/1FAIpQLSf6TGE4nLhHDGZrEUIFx72-XtG33YBgAFTUDOxWS6i-UQrWIA/formResponse" method="POST" target="_blank" aria-label="Newsletter Signup Form">
+                        <label for="entry_157474186">Email address</label>
+                        <input type="email" id="entry_157474186" name="entry.157474186" value="" dir="auto" aria-label="Email address - Must be a valid email address" aria-required="true" required placeholder="Enter your email" title="Must be a valid email address">
+                        <input type="hidden" name="draftResponse" value="[,,&quot;-1282397924495112482&quot;]">
+                        <input type="hidden" name="pageHistory" value="0">
+                        <input type="hidden" name="fbzx" value="-1282397924495112482">
+                        <button type="submit" name="submit" class="btn">Subscribe</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -209,10 +215,6 @@
                     <h3>Follow us on social media</h3>
                     <div class="social-icons">
                         <div>
-                            <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" title="Twitter"></a>
-                            <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener">Twitter / X</a>
-                        </div>
-                        <div>
                             <a href="https://www.facebook.com/atxpuzzles" target="_blank" rel="noopener"><img src="images/facebook.png" alt="Facebook" title="Facebook"></a>
                             <a href="https://www.facebook.com/atxpuzzles" target="_blank" rel="noopener">Facebook</a>
                         </div>
@@ -223,6 +225,10 @@
                         <div>
                             <a href="https://www.threads.net/@austinpuzzles" target="_blank" rel="noopener"><img src="images/threads.png" alt="Threads" title="Threads"></a>
                             <a href="https://www.threads.net/@austinpuzzles" target="_blank" rel="noopener">Threads</a>
+                        </div>
+                        <div>
+                            <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener"><img src="images/twitter.png" alt="Twitter" title="Twitter"></a>
+                            <a href="https://x.com/AustinPuzzles" target="_blank" rel="noopener">Twitter / X</a>
                         </div>
                     </div>
                 </div>

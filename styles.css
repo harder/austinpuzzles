@@ -158,7 +158,7 @@ nav ul li a.active {
 
 /* News Section */
 .news {
-    flex: 1 1 55%;
+    flex: 1 1 50%;
     min-width: 300px;
     padding: 10px;
 }
@@ -172,13 +172,18 @@ nav ul li a.active {
 }
 
 .news #x-feed {
-    background-color: var(--white);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 5px;
+    padding: 0px;
     margin-top: 20px;
     max-height: 500px;
-    overflow-y: auto;
+    overflow-y: hidden;
+    text-align: center;
+}
+
+.news .fb-page {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 500px;
+    margin: 0px;
 }
 
 .news a.twitter-timeline {
@@ -187,7 +192,7 @@ nav ul li a.active {
 
 /* Newsletter Section */
 .newsletter {
-    flex: 1 1 35%;
+    flex: 1 1 40%;
     min-width: 200px;
     padding: 10px;
 }
@@ -196,7 +201,7 @@ nav ul li a.active {
     background-color: var(--white);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px 10px;
+    padding: 1px 10px 10px 10px;
 }
 
 .newsletter h3 {
@@ -204,19 +209,21 @@ nav ul li a.active {
     font-size: 18px;
     color: #666666;
     text-align: left;
-    margin-bottom: 5px;
+    margin: 15px 0 5px 0;
 }
 
 .newsletter p {
     font-size: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: left;
+    margin: 10px;
 }
 
 .newsletter form {
     display: flex;
     flex-direction: column;
     align-items: left;
+    margin-bottom: 5px;
 }
 
 .newsletter label {
@@ -228,7 +235,7 @@ nav ul li a.active {
 }
 
 .newsletter input[type="email"] {
-    padding: 15px;
+    padding: 12px;
     width: 100%;
     max-width: 400px;
     margin-bottom: 15px;
@@ -237,19 +244,23 @@ nav ul li a.active {
     font-size: 16px;
 }
 
-.newsletter button {
+.newsletter .btn {
+    display: flex;
     background-color: var(--primary-color);
     color: var(--white);
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 10px 24px;
+    font-size: 16px;
     font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-decoration: none;
+    margin:0;
 }
 
-.newsletter button:hover {
+.newsletter .btn:hover {
+    color: var(--white);
     background-color: var(--secondary-color);
 }
 
