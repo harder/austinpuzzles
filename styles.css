@@ -567,6 +567,35 @@ footer .footer-content {
     margin-right: 6px;
 }
 
+.privacy h1 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.privacy h2 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: var(--secondary-color);
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.privacy h3 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    color: var(--secondary-color);
+    text-align: left;
+}
+
+.privacy p, .privacy ul {
+    font-size: 14px;
+    padding: 10px 0;
+    list-style: none;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     /* Show Hamburger Menu */
