@@ -1,0 +1,9 @@
+name = "austinpuzzles-worker"
+main = "worker/src/index.ts"
+compatibility_date = "2026-02-13"
+workers_dev = true
+
+[vars]
+SOCIAL_ACTOR = "austinpuzzles.com"
+CACHE_TTL_SECONDS = "900"
+ALLOWED_ORIGINS = "https://austinpuzzles.com,https://www.austinpuzzles.com,http://localhost:4321"

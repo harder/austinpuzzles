@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LocationTeaserCard from '../../components/LocationTeaserCard.astro';
+import LocationsMap from '../../components/LocationsMap.astro';
+import { getActiveLocations, formatAddress } from '../../lib/locations';
+
+const locations = await getActiveLocations();
+const mapLocations = locations
+  .filter((location) => typeof location.data.latitude === 'number' && typeof location.data.longitude === 'number')
+  .map((location) => ({
+    slug: location.slug,
+    name: location.data.name,
+    neighborhood: location.data.neighborhood,
+    address: formatAddress(location.data),
+    latitude: location.data.latitude!,
+    longitude: location.data.longitude!,
+    detailsUrl: `/locations/${location.slug}`,
+    directionsUrl: location.data.directionsUrl
+  }));
+---
+
+<BaseLayout
+  title="Austin Puzzle Exchange Locations"
+  description="Explore all active Austin Puzzle Exchange locations on an interactive map and view location details."
+>
+  <section class="container page-intro reveal-on-scroll">
+    <p class="eyebrow">Exchange Directory</p>
+    <h1>All Austin Puzzle Exchange Locations</h1>
+    <p>Use the map to find your nearest location, then open the details page for schedule, notes, and optional inventory.</p>
+  </section>
+
+  <section class="container section-stack">
+    <LocationsMap locations={mapLocations} />
+  </section>
+
+  <section class="container section-stack">
+    <div class="location-grid">
+      {locations.map((location) => (
+        <LocationTeaserCard
+          slug={location.slug}
+          name={location.data.name}
+          neighborhood={location.data.neighborhood}
+          schedule={location.data.schedule}
+          details={location.data.details}
+          heroImage={location.data.heroImage}
+          addressLabel={formatAddress(location.data)}
+          amenities={location.data.amenities}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="container section-stack">
+    <article class="glass-card host-callout reveal-on-scroll">
+      <h2>Want to Host A Future Location?</h2>
+      <p>We are actively looking for more neighborhoods around Austin and Central Texas.</p>
+      <a class="button" href="/about#contact">Volunteer to Host</a>
+    </article>
+  </section>
+</BaseLayout>

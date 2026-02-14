@@ -1,0 +1,118 @@
+---
+const formAction = import.meta.env.PUBLIC_CONTACT_FORM_ACTION || 'https://formsubmit.co/info@austinpuzzles.com';
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const turnstileVerifyUrl = import.meta.env.PUBLIC_TURNSTILE_VERIFY_URL;
+---
+
+<section class="contact-panel glass-card reveal-on-scroll" aria-labelledby="contact-title">
+  <h2 id="contact-title">Contact Austin Puzzle Exchange</h2>
+  <p>Ask questions, share feedback, or volunteer to host a location.</p>
+  <form id="contact-form" class="contact-form" action={formAction} method="POST">
+    <input type="hidden" name="_subject" value="Austin Puzzle Exchange Contact" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value="https://austinpuzzles.com/about?success=1#contact" />
+
+    <label>
+      Name
+      <input type="text" name="name" autocomplete="name" required />
+    </label>
+
+    <label>
+      Email
+      <input type="email" name="email" autocomplete="email" required />
+    </label>
+
+    <label>
+      Topic
+      <select name="topic" required>
+        <option value="General Question">General Question</option>
+        <option value="Feedback">Feedback</option>
+        <option value="Volunteer Location">Volunteer to Host a Location</option>
+      </select>
+    </label>
+
+    <label>
+      Message
+      <textarea name="message" rows="6" required></textarea>
+    </label>
+
+    <label class="honey-field" aria-hidden="true">
+      Leave this blank
+      <input type="text" name="company" tabindex="-1" autocomplete="off" />
+    </label>
+
+    <input type="hidden" name="form_started_at" id="form-started-at" />
+
+    {turnstileSiteKey && (
+      <div class="turnstile-wrap">
+        <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+      </div>
+    )}
+
+    <button class="button" type="submit">Send Message</button>
+    <p id="contact-status" class="contact-status" aria-live="polite"></p>
+  </form>
+</section>
+
+{turnstileSiteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+<script is:inline define:vars={{ turnstileVerifyUrl, turnstileSiteKey }}>
+  const form = document.querySelector('#contact-form');
+  const statusElement = document.querySelector('#contact-status');
+  const startedAt = document.querySelector('#form-started-at');
+
+  if (startedAt) {
+    startedAt.value = new Date().toISOString();
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    if (!form || !statusElement) return;
+
+    const data = new FormData(form);
+
+    if ((data.get('company') || '').toString().trim()) {
+      event.preventDefault();
+      statusElement.textContent = 'Spam protection blocked this submission.';
+      return;
+    }
+
+    const started = data.get('form_started_at');
+    if (started) {
+      const ageMs = Date.now() - new Date(started.toString()).getTime();
+      if (ageMs < 2500) {
+        event.preventDefault();
+        statusElement.textContent = 'Please take a second to review your message and try again.';
+        return;
+      }
+    }
+
+    if (turnstileSiteKey && turnstileVerifyUrl) {
+      event.preventDefault();
+      statusElement.textContent = 'Verifying your submission…';
+
+      try {
+        const token = data.get('cf-turnstile-response');
+        const verifyResponse = await fetch(turnstileVerifyUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+
+        if (!verifyResponse.ok) {
+          throw new Error('Verification request failed');
+        }
+
+        const payload = await verifyResponse.json();
+        if (!payload.success) {
+          statusElement.textContent = 'Spam verification failed. Please try again.';
+          return;
+        }
+
+        form.submit();
+      } catch (_error) {
+        statusElement.textContent = 'Unable to verify right now. Please try again shortly.';
+      }
+    }
+  });
+</script>

@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationTeaserCard from '../components/LocationTeaserCard.astro';
+import LocationsMap from '../components/LocationsMap.astro';
+import SocialPanel from '../components/SocialPanel.astro';
+import NewsPanel from '../components/NewsPanel.astro';
+import AffiliateGrid from '../components/AffiliateGrid.astro';
+import GuidelinesPanel from '../components/GuidelinesPanel.astro';
+import { getActiveLocations, formatAddress } from '../lib/locations';
+
+const locations = await getActiveLocations();
+const mapLocations = locations
+  .filter((location) => typeof location.data.latitude === 'number' && typeof location.data.longitude === 'number')
+  .map((location) => ({
+    slug: location.slug,
+    name: location.data.name,
+    neighborhood: location.data.neighborhood,
+    address: formatAddress(location.data),
+    latitude: location.data.latitude!,
+    longitude: location.data.longitude!,
+    detailsUrl: `/locations/${location.slug}`,
+    directionsUrl: location.data.directionsUrl
+  }));
+---
+
+<BaseLayout
+  title="Austin Puzzle Exchange | Free Community Puzzle Swaps"
+  description="Find local free puzzle exchange locations in Austin, browse details, and join the community puzzle swap movement."
+>
+  <section id="home" class="hero container">
+    <div class="hero__copy reveal-on-scroll">
+      <p class="eyebrow">Free Community Swap Network</p>
+      <h1>Austin puzzles, shared with neighbors.</h1>
+      <p>
+        Borrow a puzzle, return a puzzle, and help grow a local exchange that keeps puzzling affordable and social.
+      </p>
+      <div class="hero__actions">
+        <a class="button" href="/locations">Find Locations</a>
+        <a class="button button--secondary" href="/about#contact">Host A New Spot</a>
+      </div>
+    </div>
+    <div class="hero__media reveal-on-scroll">
+      <img src="/images/austin-skyline.jpg" alt="Austin skyline" loading="eager" />
+    </div>
+  </section>
+
+  <section class="container stats-grid reveal-on-scroll" aria-label="Community impact">
+    <article class="glass-card stats-item">
+      <strong>{locations.length}</strong>
+      <span>active locations</span>
+    </article>
+    <article class="glass-card stats-item">
+      <strong>100% free</strong>
+      <span>for all neighbors</span>
+    </article>
+    <article class="glass-card stats-item">
+      <strong>All ages</strong>
+      <span>beginner to expert</span>
+    </article>
+  </section>
+
+  <section id="locations" class="container section-stack">
+    <div class="section-title reveal-on-scroll">
+      <h2>Featured Exchange Locations</h2>
+      <p>Each location has its own details page with schedule, notes, and optional inventory snapshots.</p>
+    </div>
+    <div class="location-grid">
+      {locations.map((location) => (
+        <LocationTeaserCard
+          slug={location.slug}
+          name={location.data.name}
+          neighborhood={location.data.neighborhood}
+          schedule={location.data.schedule}
+          details={location.data.details}
+          heroImage={location.data.heroImage}
+          addressLabel={formatAddress(location.data)}
+          amenities={location.data.amenities}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="container section-stack">
+    <LocationsMap locations={mapLocations} />
+  </section>
+
+  <section id="guidelines" class="container section-stack">
+    <GuidelinesPanel />
+  </section>
+
+  <section id="news" class="container section-stack">
+    <NewsPanel />
+  </section>
+
+  <section id="social" class="container section-stack">
+    <SocialPanel />
+  </section>
+
+  <section id="about" class="container section-stack">
+    <article class="glass-card about-splash reveal-on-scroll">
+      <div class="about-splash__copy">
+        <h2>Built In Austin, Inspired By Puzzle Community</h2>
+        <p>
+          Austin Puzzle Exchange started as a neighborhood experiment and grew into a citywide sharing effort. The goal is simple:
+          keep puzzling affordable, local, and social.
+        </p>
+        <div class="button-row">
+          <a class="button" href="/about">Read The Story</a>
+          <a class="button button--secondary" href="/start-a-swap">Start A Swap</a>
+        </div>
+      </div>
+      <img src="/images/couple2.jpg" alt="Austin Puzzle Exchange founders with puzzles" loading="lazy" />
+    </article>
+  </section>
+
+  <section id="shop" class="container section-stack">
+    <AffiliateGrid />
+  </section>
+</BaseLayout>

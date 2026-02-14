@@ -1,0 +1,41 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const aboutEntry = await getEntry('pages', 'about');
+const { Content } = await render(aboutEntry!);
+const success = Astro.url.searchParams.get('success');
+---
+
+<BaseLayout
+  title="About Austin Puzzle Exchange"
+  description="Learn how the Austin Puzzle Exchange started and how the free puzzle swap network works."
+>
+  <section class="container page-intro reveal-on-scroll">
+    <p class="eyebrow">About</p>
+    <h1>{aboutEntry?.data.title}</h1>
+    <p>{aboutEntry?.data.summary}</p>
+  </section>
+
+  <section class="container section-stack">
+    <article class="glass-card prose-block reveal-on-scroll">
+      <Content />
+      <p>
+        Similar spirit, new format: this project follows the community-first model of neighborhood sharing systems like
+        Little Free Libraries.
+      </p>
+      <a class="button" href="/locations">See Current Locations</a>
+    </article>
+  </section>
+
+  <section id="contact" class="container section-stack">
+    {success === '1' && (
+      <article class="glass-card success-banner reveal-on-scroll">
+        <h2>Message Sent</h2>
+        <p>Thank you for reaching out. We will respond as soon as we can.</p>
+      </article>
+    )}
+    <ContactForm />
+  </section>
+</BaseLayout>

@@ -1,0 +1,50 @@
+<section class="news-panel glass-card reveal-on-scroll" aria-labelledby="news-title">
+  <div class="news-panel__header">
+    <h2 id="news-title">Open-Source Puzzle News</h2>
+    <p>Recent repository activity for puzzle-focused projects from GitHub.</p>
+  </div>
+  <ul id="repo-news" class="feed-list">
+    <li>Loading puzzle project updates…</li>
+  </ul>
+</section>
+
+<script>
+  const newsList = document.querySelector('#repo-news');
+  const workerEndpoint = import.meta.env.PUBLIC_NEWS_API_URL;
+
+  async function loadNews() {
+    if (!newsList) return;
+
+    const fallback = 'https://api.github.com/search/repositories?q=topic:jigsaw-puzzle+OR+topic:puzzle+OR+topic:crossword&sort=updated&order=desc&per_page=6';
+    try {
+      const response = await fetch(workerEndpoint || fallback, {
+        headers: { Accept: 'application/vnd.github+json' }
+      });
+
+      if (!response.ok) {
+        throw new Error(`News request failed with ${response.status}`);
+      }
+
+      const payload: any = await response.json();
+      const items: any[] = payload.items || payload.repositories || [];
+
+      if (!items.length) {
+        newsList.innerHTML = '<li>No puzzle updates found at the moment.</li>';
+        return;
+      }
+
+      newsList.innerHTML = items
+        .slice(0, 6)
+        .map((repo: any) => {
+          const updated = repo.updated_at || repo.updatedAt;
+          const when = updated ? new Date(updated).toLocaleDateString() : 'recently';
+          return `<li><a href="${repo.html_url || repo.url}" target="_blank" rel="noreferrer">${repo.full_name || repo.name}</a><p>${repo.description || 'Puzzle-related open-source project.'}</p><span>Updated ${when}</span></li>`;
+        })
+        .join('');
+    } catch (_error) {
+      newsList.innerHTML = '<li>Unable to load puzzle news right now.</li>';
+    }
+  }
+
+  loadNews();
+</script>

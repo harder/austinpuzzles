@@ -1,0 +1,90 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description = 'A free, neighborhood-driven jigsaw puzzle swap network in Austin, Texas.',
+  canonical,
+  image = '/images/logo-min.jpg'
+} = Astro.props;
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="en" data-theme="light" data-theme-mode="system">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Harder.DEV" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Austin Puzzles" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script is:inline>
+      const modeKey = 'austin-puzzles-theme-mode';
+      const storedMode = localStorage.getItem(modeKey);
+      const themeMode = storedMode === 'light' || storedMode === 'dark' || storedMode === 'system' ? storedMode : 'system';
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const resolvedTheme = themeMode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : themeMode;
+      document.documentElement.dataset.themeMode = themeMode;
+      document.documentElement.dataset.theme = resolvedTheme;
+    </script>
+  </head>
+  <body>
+    <SiteHeader />
+    <main id="top">
+      <slot />
+    </main>
+    <SiteFooter />
+    <script>
+      const legacyHashMap = {
+        '#news': '#social',
+        '#newsletter': '#social',
+        '#guidelines': '#guidelines',
+        '#locations': '#locations',
+        '#about': '#about',
+        '#home': '#top'
+      };
+
+      const mappedHash = legacyHashMap[window.location.hash as keyof typeof legacyHashMap];
+      if (mappedHash && mappedHash !== window.location.hash) {
+        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${mappedHash}`);
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.14 }
+      );
+
+      document.querySelectorAll('.reveal-on-scroll').forEach((node) => observer.observe(node));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<div class="theme-switch" role="radiogroup" aria-label="Theme mode">
+  <button class="theme-switch__option" type="button" role="radio" aria-checked="false" data-theme-mode="system">System</button>
+  <button class="theme-switch__option" type="button" role="radio" aria-checked="false" data-theme-mode="light">Light</button>
+  <button class="theme-switch__option" type="button" role="radio" aria-checked="false" data-theme-mode="dark">Dark</button>
+</div>
+
+<script>
+  const modeKey = 'austin-puzzles-theme-mode';
+  const options = Array.from(document.querySelectorAll('.theme-switch__option')) as HTMLButtonElement[];
+
+  const applyMode = (mode: 'system' | 'light' | 'dark') => {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const resolvedTheme = mode === 'system' ? (prefersDark ? 'dark' : 'light') : mode;
+    document.documentElement.dataset.theme = resolvedTheme;
+    document.documentElement.dataset.themeMode = mode;
+
+    options.forEach((option) => {
+      option.setAttribute('aria-checked', option.dataset.themeMode === mode ? 'true' : 'false');
+      option.classList.toggle('is-active', option.dataset.themeMode === mode);
+    });
+  };
+
+  const stored = localStorage.getItem(modeKey);
+  const initialMode: 'system' | 'light' | 'dark' =
+    stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
+
+  applyMode(initialMode);
+
+  options.forEach((option) => {
+    option.addEventListener('click', () => {
+      const mode = option.dataset.themeMode as 'system' | 'light' | 'dark';
+      localStorage.setItem(modeKey, mode);
+      applyMode(mode);
+    });
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    const current = (localStorage.getItem(modeKey) as 'system' | 'light' | 'dark' | null) || 'system';
+    if (current === 'system') {
+      applyMode('system');
+    }
+  });
+</script>

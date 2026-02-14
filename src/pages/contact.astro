@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Redirecting | Austin Puzzle Exchange"
+  description="Contact information has moved to the About page."
+>
+  <section class="container page-intro reveal-on-scroll" id="top">
+    <p class="eyebrow">Redirecting</p>
+    <h1>Contact Has Moved</h1>
+    <p>The contact section now lives on the About page.</p>
+    <a class="button" href="/about#contact">Go To Contact Section</a>
+  </section>
+  <script is:inline>
+    window.location.replace('/about#contact');
+  </script>
+</BaseLayout>

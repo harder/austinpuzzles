@@ -1,0 +1,140 @@
+---
+interface Props {
+  expanded?: boolean;
+  sectionId?: string;
+}
+
+const { expanded = false, sectionId = 'social' } = Astro.props;
+const socialApiUrl = import.meta.env.PUBLIC_SOCIAL_API_URL || '';
+
+const socialLinks = [
+  { label: 'Facebook Page', href: 'https://www.facebook.com/atxpuzzles', icon: '/images/facebook.png' },
+  { label: 'Facebook Group', href: 'https://www.facebook.com/groups/austinpuzzles', icon: '/images/facebook.png' },
+  { label: 'Instagram', href: 'https://www.instagram.com/austinpuzzles', icon: '/images/instagram.png' },
+  { label: 'Threads', href: 'https://www.threads.net/@austinpuzzles', icon: '/images/threads.png' },
+  { label: 'X / Twitter', href: 'https://x.com/AustinPuzzles', icon: '/images/twitter.png' },
+  { label: 'Bluesky', href: 'https://bsky.app/profile/austinpuzzles.com', icon: '/icons/social/bluesky.svg' }
+];
+---
+
+<section
+  id={sectionId}
+  class={`social-panel glass-card reveal-on-scroll ${expanded ? 'social-panel--expanded' : 'social-panel--compact'}`}
+  aria-labelledby="social-title"
+  data-section-id={sectionId}
+  data-social-api={socialApiUrl}
+>
+  <div class="social-panel__header">
+    <p class="eyebrow">Community Updates</p>
+    <h2 id="social-title">Austin Puzzle Exchange Social Hub</h2>
+    <p>Follow announcements, photos, and live puzzle swap updates across social channels.</p>
+  </div>
+
+  <ul class="social-links-grid" aria-label="Austin Puzzle Exchange social profiles">
+    {socialLinks.map((item) => (
+      <li>
+        <a href={item.href} target="_blank" rel="noreferrer">
+          <img src={item.icon} alt="" loading="lazy" aria-hidden="true" />
+          <span>{item.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="social-grid">
+    <article class="social-card social-card--facebook">
+      <h3>Facebook Timeline</h3>
+      <div id="fb-root"></div>
+      <div class="fb-page" data-href="https://www.facebook.com/atxpuzzles" data-tabs="timeline" data-width={expanded ? '600' : '500'} data-height={expanded ? '520' : '420'} data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+        <blockquote cite="https://www.facebook.com/atxpuzzles" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/atxpuzzles">Austin Puzzle Exchange</a>
+        </blockquote>
+      </div>
+    </article>
+
+    <article class="social-card">
+      <h3>Bluesky Snippets</h3>
+      <p class="social-card__subtext">Fast-loading highlights from <a href="https://bsky.app/profile/austinpuzzles.com" target="_blank" rel="noreferrer">@austinpuzzles.com</a>.</p>
+      <ul id={`bluesky-feed-${sectionId}`} class="feed-list">
+        <li>Loading latest posts…</li>
+      </ul>
+    </article>
+
+    {expanded && (
+      <article class="social-card social-card--x">
+        <h3>X Timeline</h3>
+        <a class="twitter-timeline" data-height="520" href="https://x.com/AustinPuzzles">Posts by AustinPuzzles</a>
+      </article>
+    )}
+  </div>
+
+  {!expanded && (
+    <div class="button-row social-panel__cta">
+      <a class="button button--secondary" href="/social">Open Full Social Page</a>
+    </div>
+  )}
+</section>
+
+<script>
+  const fbScriptId = 'facebook-jssdk';
+  if (!document.getElementById(fbScriptId)) {
+    const fbScript = document.createElement('script');
+    fbScript.id = fbScriptId;
+    fbScript.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0';
+    fbScript.async = true;
+    fbScript.defer = true;
+    fbScript.crossOrigin = 'anonymous';
+    document.head.append(fbScript);
+  }
+
+  if (document.querySelector('.twitter-timeline') && !document.getElementById('twitter-wjs')) {
+    const script = document.createElement('script');
+    script.id = 'twitter-wjs';
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+    document.head.append(script);
+  }
+
+  const panel = document.currentScript?.previousElementSibling;
+  const sectionId = panel?.getAttribute('data-section-id') || 'social';
+  const workerEndpoint = panel?.getAttribute('data-social-api') || '';
+  const blueskyList = document.querySelector(`#bluesky-feed-${sectionId}`);
+  const fallbackUrl = 'https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=austinpuzzles.com&limit=5';
+
+  async function loadBlueskyFeed() {
+    if (!blueskyList) return;
+
+    try {
+      const response = await fetch(workerEndpoint || fallbackUrl);
+      if (!response.ok) {
+        throw new Error(`Social feed request failed with ${response.status}`);
+      }
+
+      const payload: any = await response.json();
+      const items: any[] = payload.posts || payload.feed || [];
+      const posts = items
+        .map((item: any) => ({
+          text: item.text || item.post?.record?.text,
+          indexedAt: item.indexedAt || item.post?.indexedAt
+        }))
+        .filter((post: any) => post.text)
+        .slice(0, 5);
+
+      if (!posts.length) {
+        blueskyList.innerHTML = '<li>No recent posts available right now.</li>';
+        return;
+      }
+
+      blueskyList.innerHTML = posts
+        .map((post: any) => {
+          const date = post.indexedAt ? new Date(post.indexedAt).toLocaleDateString() : '';
+          return `<li><p>${post.text}</p><span>${date}</span></li>`;
+        })
+        .join('');
+    } catch (_error) {
+      blueskyList.innerHTML = '<li>Unable to load social updates right now.</li>';
+    }
+  }
+
+  loadBlueskyFeed();
+</script>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateGrid from '../components/AffiliateGrid.astro';
+
+const alternativePrograms = [
+  {
+    name: 'eBay Partner Network',
+    bestFor: 'Used and retired puzzles, puzzle tools, collectors items.',
+    setup: 'Free signup; deep-link to individual listings and collections.',
+    href: 'https://partnernetwork.ebay.com/'
+  },
+  {
+    name: 'Etsy Affiliate Program (Awin)',
+    bestFor: 'Handmade puzzle boards, puzzle accessories, custom gifts.',
+    setup: 'Apply through Awin, then link to Etsy products/shops.',
+    href: 'https://www.etsy.com/affiliates'
+  },
+  {
+    name: 'Walmart Creator',
+    bestFor: 'Mainstream puzzle brands and family game products.',
+    setup: 'Join creator platform and use approved product links.',
+    href: 'https://creator.walmart.com/'
+  }
+];
+---
+
+<BaseLayout
+  title="Puzzle Shop | Austin Puzzle Exchange"
+  description="Curated puzzle products and affiliate resources that support Austin Puzzle Exchange."
+>
+  <section id="shop" class="container page-intro reveal-on-scroll">
+    <p class="eyebrow">Shop</p>
+    <h1>Puzzle Gear and Support Links</h1>
+    <p>Shop recommendations are optional and help support site hosting and community project costs.</p>
+  </section>
+
+  <section class="container section-stack">
+    <AffiliateGrid />
+  </section>
+
+  <section class="container section-stack">
+    <article class="glass-card reveal-on-scroll">
+      <h2>Amazon Creators API: Practical Setup Path</h2>
+      <ol>
+        <li>Join or confirm your Amazon Associate/Creator account and active tracking IDs.</li>
+        <li>Request API access from the Amazon Creators API portal and create API credentials.</li>
+        <li>Store credentials as Cloudflare Worker secrets instead of exposing keys in client-side JavaScript.</li>
+        <li>Create a Worker endpoint like <code>/api/shop-products</code> to fetch, cache, and normalize product data.</li>
+        <li>Call that Worker endpoint from Astro client components and render product cards statically+hydrated.</li>
+        <li>Add disclosure copy and rel attributes (<code>rel="sponsored noreferrer"</code>) to outbound links.</li>
+      </ol>
+      <p class="meta-note">Current recommendation: keep manual curated links in production while API approval/quotas are being finalized.</p>
+      <p><a href="https://creatorsapi.amazon.com/" target="_blank" rel="noreferrer">Amazon Creators API portal</a></p>
+    </article>
+  </section>
+
+  <section class="container section-stack">
+    <article class="glass-card reveal-on-scroll">
+      <h2>Other Easy Affiliate Options For Puzzle Content</h2>
+      <div class="program-grid">
+        {alternativePrograms.map((program) => (
+          <article class="program-card">
+            <h3>{program.name}</h3>
+            <p><strong>Best for:</strong> {program.bestFor}</p>
+            <p><strong>Setup:</strong> {program.setup}</p>
+            <a class="button button--small" href={program.href} target="_blank" rel="noreferrer">Program Details</a>
+          </article>
+        ))}
+      </div>
+      <p class="meta-note">Recommendation: launch Amazon + one secondary network first, then compare click and conversion quality after 30 days.</p>
+      <ul>
+        <li><a href="https://partnernetwork.ebay.com/" target="_blank" rel="noreferrer">eBay Partner Network</a></li>
+        <li><a href="https://www.etsy.com/affiliates" target="_blank" rel="noreferrer">Etsy Affiliate program</a></li>
+        <li><a href="https://creator.walmart.com/" target="_blank" rel="noreferrer">Walmart Creator</a></li>
+      </ul>
+    </article>
+  </section>
+</BaseLayout>

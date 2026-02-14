@@ -1,0 +1,33 @@
+---
+interface Props {
+  slug: string;
+  name: string;
+  neighborhood: string;
+  schedule: string;
+  details: string;
+  heroImage?: string;
+  addressLabel: string;
+  amenities: string[];
+}
+
+const { slug, name, neighborhood, schedule, details, heroImage, addressLabel, amenities } = Astro.props;
+---
+
+<article class="glass-card location-card reveal-on-scroll">
+  {heroImage && <img src={heroImage} alt={name} loading="lazy" class="location-card__image" />}
+  <div class="location-card__content">
+    <p class="location-card__neighborhood">{neighborhood}</p>
+    <h3>{name}</h3>
+    <p class="location-card__address">{addressLabel}</p>
+    <p>{details}</p>
+    <p><strong>Hours:</strong> {schedule}</p>
+    {amenities.length > 0 && (
+      <ul class="pill-list">
+        {amenities.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )}
+    <a class="button button--secondary" href={`/locations/${slug}`}>View Details</a>
+  </div>
+</article>

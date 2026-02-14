@@ -1,0 +1,38 @@
+{
+  "name": "austinpuzzles",
+  "version": "1.0.0",
+  "description": "Astro site for the Austin Puzzle Exchange",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "worker:dev": "npx wrangler dev",
+    "worker:deploy": "npx wrangler deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harder/austinpuzzles.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/harder/austinpuzzles/issues"
+  },
+  "homepage": "https://github.com/harder/austinpuzzles#readme",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.17.2",
+    "leaflet": "^1.9.4",
+    "maplibre-gl": "^5.18.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@types/leaflet": "^1.9.21",
+    "typescript": "^5.9.3"
+  }
+}
