@@ -106,6 +106,8 @@ Adjust `wrangler.toml` vars as needed.
 
 ## GitHub Actions
 
+The default branch is `main`, and GitHub Pages publishes from the `Deploy Site` workflow rather than directly from branch files.
+
 Workflows:
 
 - `ci.yml`: runs checks and build on push/PR
