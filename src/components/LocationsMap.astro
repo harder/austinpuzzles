@@ -1,0 +1,154 @@
+---
+import { serializeJsonForHtmlScript } from '../lib/serialize';
+
+interface MapLocation {
+  slug: string;
+  name: string;
+  neighborhood: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  detailsUrl: string;
+  directionsUrl?: string;
+}
+
+interface Props {
+  locations: MapLocation[];
+}
+
+const { locations } = Astro.props;
+const serializedLocations = serializeJsonForHtmlScript(locations);
+---
+
+<section class="map-section reveal-on-scroll" aria-labelledby="map-title">
+  <div class="map-section__header">
+    <h2 id="map-title">Find A Swap Near You</h2>
+    <p>Search by neighborhood, ZIP, or street. Click markers for details and directions.</p>
+    <label for="location-search" class="sr-only">Search locations</label>
+    <input id="location-search" type="search" placeholder="Search Austin locations" autocomplete="off" />
+  </div>
+  <div id="locations-map" aria-label="Austin Puzzle Exchange Map"></div>
+  <ul id="map-results" class="map-results" aria-live="polite"></ul>
+</section>
+
+<script is:inline type="application/json" id="map-locations-data" set:html={serializedLocations}></script>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  interface ClientLocation {
+    slug: string;
+    name: string;
+    neighborhood: string;
+    address: string;
+    latitude: number;
+    longitude: number;
+    detailsUrl: string;
+    directionsUrl?: string;
+  }
+
+  interface MarkerLocation extends ClientLocation {
+    marker: L.Marker;
+  }
+
+  const mapElement = document.querySelector('#locations-map') as HTMLElement | null;
+  const searchInput = document.querySelector('#location-search') as HTMLInputElement | null;
+  const resultList = document.querySelector('#map-results') as HTMLUListElement | null;
+  const dataElement = document.querySelector('#map-locations-data') as HTMLScriptElement | null;
+
+  if (mapElement && dataElement && resultList) {
+    const markerIcon = L.icon({
+      iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41]
+    });
+
+    const locationData = JSON.parse(dataElement.textContent || '[]') as ClientLocation[];
+    const map = L.map(mapElement, {
+      scrollWheelZoom: false
+    }).setView([30.3072, -97.755], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const markers: MarkerLocation[] = locationData.map((item) => {
+      const marker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(map);
+      const popup = document.createElement('div');
+      const name = document.createElement('strong');
+      name.textContent = item.name;
+      const address = document.createElement('span');
+      address.textContent = item.address;
+      const details = document.createElement('a');
+      details.href = item.detailsUrl;
+      details.textContent = 'Location details';
+      popup.append(name, document.createElement('br'), address, document.createElement('br'), details);
+      if (item.directionsUrl && /^https?:\/\//i.test(item.directionsUrl)) {
+        const directions = document.createElement('a');
+        directions.href = item.directionsUrl;
+        directions.target = '_blank';
+        directions.rel = 'noopener noreferrer';
+        directions.textContent = 'Directions';
+        popup.append(document.createElement('br'), directions);
+      }
+      marker.bindPopup(popup);
+      return { ...item, marker };
+    });
+
+    const bounds = L.latLngBounds(locationData.map((item) => [item.latitude, item.longitude] as [number, number]));
+    if (bounds.isValid()) {
+      map.fitBounds(bounds.pad(0.15));
+    }
+
+    const renderResults = (items: MarkerLocation[]) => {
+      resultList.replaceChildren();
+      if (!items.length) {
+        const li = document.createElement('li');
+        li.textContent = 'No matching locations found.';
+        resultList.append(li);
+        return;
+      }
+      items.forEach((item: MarkerLocation) => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.append(document.createTextNode(`${item.name} `));
+        const address = document.createElement('span');
+        address.textContent = item.address;
+        button.append(address);
+        button.addEventListener('click', () => {
+          map.setView([item.latitude, item.longitude], 14, { animate: true });
+          item.marker.openPopup();
+        });
+        li.append(button);
+        resultList.append(li);
+      });
+    };
+
+    renderResults(markers);
+
+    const runFilter = () => {
+      const query = (searchInput?.value || '').trim().toLowerCase();
+      const filtered = !query
+        ? markers
+        : markers.filter((item: MarkerLocation) =>
+            `${item.name} ${item.neighborhood} ${item.address}`.toLowerCase().includes(query)
+          );
+
+      markers.forEach((item: MarkerLocation) => {
+        if (filtered.includes(item)) {
+          item.marker.addTo(map);
+        } else {
+          item.marker.remove();
+        }
+      });
+
+      renderResults(filtered);
+    };
+
+    searchInput?.addEventListener('input', runFilter);
+  }
+</script>

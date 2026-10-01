@@ -1,0 +1,71 @@
+<section class="news-panel glass-card reveal-on-scroll" aria-labelledby="news-title">
+  <div class="news-panel__header">
+    <h2 id="news-title">Open-Source Puzzle News</h2>
+    <p>Recent repository activity for puzzle-focused projects from GitHub.</p>
+  </div>
+  <ul id="repo-news" class="feed-list">
+    <li>Loading puzzle project updates…</li>
+  </ul>
+</section>
+
+<script>
+  const newsList = document.querySelector('#repo-news');
+  const workerEndpoint = import.meta.env.PUBLIC_NEWS_API_URL;
+
+  function showMessage(message: string) {
+    if (!newsList) return;
+    const item = document.createElement('li');
+    item.textContent = message;
+    newsList.replaceChildren(item);
+  }
+
+  async function loadNews() {
+    if (!newsList) return;
+
+    const fallback = 'https://api.github.com/search/repositories?q=topic%3Ajigsaw-puzzle&sort=updated&order=desc&per_page=6';
+    try {
+      const response = await fetch(workerEndpoint || fallback, {
+        headers: { Accept: 'application/vnd.github+json' }
+      });
+
+      if (!response.ok) {
+        throw new Error(`News request failed with ${response.status}`);
+      }
+
+      const payload: any = await response.json();
+      const items: any[] = payload.items || payload.repositories || [];
+
+      if (!items.length) {
+        showMessage('No puzzle updates found at the moment.');
+        return;
+      }
+
+      newsList.replaceChildren(...items.slice(0, 6).map((repo: any) => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        const url = repo.html_url || repo.url;
+        if (typeof url === 'string' && /^https:\/\/github\.com\//i.test(url)) {
+          link.href = url;
+        } else {
+          link.href = 'https://github.com/topics/puzzle';
+        }
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = repo.full_name || repo.name || 'Puzzle project';
+        const description = document.createElement('p');
+        description.textContent = repo.description || 'Puzzle-related open-source project.';
+        const updated = repo.updated_at || repo.updatedAt;
+        const parsedDate = updated ? new Date(updated) : null;
+        const when = parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate.toLocaleDateString() : 'recently';
+        const date = document.createElement('span');
+        date.textContent = `Updated ${when}`;
+        item.append(link, description, date);
+        return item;
+      }));
+    } catch (_error) {
+      showMessage('Unable to load puzzle news right now.');
+    }
+  }
+
+  loadNews();
+</script>

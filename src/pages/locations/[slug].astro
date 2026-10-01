@@ -1,0 +1,111 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatAddress } from '../../lib/locations';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('locations', ({ data }) => data.active);
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const address = formatAddress(entry.data);
+const mapLink = entry.data.latitude && entry.data.longitude
+  ? `https://www.openstreetmap.org/?mlat=${entry.data.latitude}&mlon=${entry.data.longitude}#map=15/${entry.data.latitude}/${entry.data.longitude}`
+  : undefined;
+---
+
+<BaseLayout
+  title={`${entry.data.name} | Austin Puzzle Exchange`}
+  description={`Details for ${entry.data.name}, including schedule, location notes, and optional inventory list.`}
+>
+  <section class="container page-intro reveal-on-scroll">
+    <p class="eyebrow">Location Details</p>
+    <h1>{entry.data.name}</h1>
+    <p>{entry.data.details}</p>
+  </section>
+
+  <section class="container detail-grid section-stack">
+    <article class="glass-card detail-card reveal-on-scroll">
+      <h2>Visit Info</h2>
+      <p><strong>Neighborhood:</strong> {entry.data.neighborhood}</p>
+      <p><strong>Address:</strong> {address}</p>
+      <p><strong>Schedule:</strong> {entry.data.schedule}</p>
+      {entry.data.hours && <p><strong>Hours:</strong> {entry.data.hours}</p>}
+      {entry.data.email && <p><strong>Email:</strong> <a href={`mailto:${entry.data.email}`}>{entry.data.email}</a></p>}
+
+      <div class="button-row">
+        {entry.data.directionsUrl && <a class="button button--small" href={entry.data.directionsUrl} target="_blank" rel="noreferrer">Directions</a>}
+        {mapLink && <a class="button button--secondary button--small" href={mapLink} target="_blank" rel="noreferrer">OpenStreetMap</a>}
+      </div>
+
+      {entry.data.notes.length > 0 && (
+        <>
+          <h3>Notes</h3>
+          <ul>
+            {entry.data.notes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+        </>
+      )}
+    </article>
+
+    <article class="glass-card detail-card reveal-on-scroll">
+      <h2>Gallery</h2>
+      {entry.data.gallery.length ? (
+        <div class="gallery-grid">
+          {entry.data.gallery.map((photo) => (
+            <figure>
+              <img src={photo.src} alt={photo.alt} loading="lazy" />
+              {photo.caption && <figcaption>{photo.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <p>No photos uploaded yet.</p>
+      )}
+    </article>
+  </section>
+
+  <section class="container section-stack">
+    <article class="glass-card detail-card reveal-on-scroll">
+      <h2>Optional Inventory Snapshot</h2>
+      <p>Inventory is approximate and may be out of date. It is provided as a rough sample only.</p>
+      {entry.data.inventory.length ? (
+        <div class="inventory-grid">
+          {entry.data.inventory.map((item) => (
+            <article class="inventory-item">
+              {item.image && <img src={item.image} alt={item.title} loading="lazy" />}
+              <h3>{item.title}</h3>
+              {item.pieceCount && <p>{item.pieceCount.toLocaleString()} pieces</p>}
+              {item.condition && <p>{item.condition}</p>}
+              {item.notes && <p>{item.notes}</p>}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>This location has not published an inventory snapshot yet.</p>
+      )}
+      {entry.data.inventoryUpdated && <p class="meta-note">Last inventory refresh: {entry.data.inventoryUpdated}</p>}
+    </article>
+  </section>
+
+  <section class="container section-stack">
+    <article class="glass-card detail-card reveal-on-scroll">
+      <h2>About This Location</h2>
+      <Content />
+      {entry.data.socials.length > 0 && (
+        <div class="button-row">
+          {entry.data.socials.map((social) => (
+            <a class="button button--secondary button--small" href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
+          ))}
+        </div>
+      )}
+    </article>
+  </section>
+</BaseLayout>

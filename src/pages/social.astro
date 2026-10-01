@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialPanel from '../components/SocialPanel.astro';
+---
+
+<BaseLayout
+  title="Social Hub | Austin Puzzle Exchange"
+  description="Follow Austin Puzzle Exchange on Facebook, Instagram, Threads, X, and Bluesky."
+>
+  <section class="container page-intro reveal-on-scroll">
+    <p class="eyebrow">Connect</p>
+    <h1>Follow Austin Puzzle Exchange</h1>
+    <p>Keep up with announcements, location updates, and puzzle swap stories across every active channel.</p>
+  </section>
+
+  <section class="container section-stack">
+    <SocialPanel expanded={true} sectionId="social-full" />
+  </section>
+</BaseLayout>

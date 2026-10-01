@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateGrid from '../components/AffiliateGrid.astro';
+---
+
+<BaseLayout
+  title="Puzzle Shop | Austin Puzzle Exchange"
+  description="Browse optional puzzle picks that help support the free Austin Puzzle Exchange."
+>
+  <section id="shop" class="container page-intro">
+    <p class="eyebrow">The puzzle shelf</p>
+    <h1>A few good finds for <em>puzzle people.</em></h1>
+    <p>Our first choice is always to share a puzzle with a neighbor. If you are shopping for something new, these optional links can help support the exchange.</p>
+  </section>
+
+  <section class="container section-stack"><AffiliateGrid /></section>
+
+  <section class="container section-stack">
+    <article class="host-feature">
+      <div class="host-feature__symbol" aria-hidden="true">✳</div>
+      <div>
+        <p class="eyebrow">The best deal is down the street</p>
+        <h2>Try the <em>free shelf</em> first.</h2>
+        <p>There might already be a new-to-you puzzle waiting at a swap nearby.</p>
+      </div>
+      <a class="button button--light" href="/locations/">Find a free swap <span aria-hidden="true">↗</span></a>
+    </article>
+  </section>
+</BaseLayout>

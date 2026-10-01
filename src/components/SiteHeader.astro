@@ -1,0 +1,49 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const navLinks = [
+  { href: '/locations/', label: 'Find a swap' },
+  { href: '/start-a-swap/', label: 'Host a swap' },
+  { href: '/about/', label: 'Our story' },
+  { href: '/social/', label: 'Community' },
+  { href: '/shop/', label: 'Shop' }
+];
+---
+
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__top"><div class="container"><span>ATX ↔ PUZZLES</span><span>A LITTLE FREE FUN, ALL AROUND AUSTIN</span></div></div>
+  <div class="site-header__inner container">
+    <a href="/" class="brand" aria-label="Austin Puzzle Exchange Home">
+      <span class="brand__mark" aria-hidden="true">✳</span>
+      <span class="brand__name">Austin<span>Puzzle Exchange</span></span>
+    </a>
+
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-nav" aria-label="Toggle menu" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      {navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <ThemeToggle />
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector('#menu-toggle');
+  const nav = document.querySelector('#site-nav');
+
+  menuButton?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open');
+    menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('is-open');
+      menuButton?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

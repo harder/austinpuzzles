@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LocationTeaserCard from '../components/LocationTeaserCard.astro';
+import LocationsMap from '../components/LocationsMap.astro';
+import SocialPanel from '../components/SocialPanel.astro';
+import NewsPanel from '../components/NewsPanel.astro';
+import AffiliateGrid from '../components/AffiliateGrid.astro';
+import { getActiveLocations, formatAddress } from '../lib/locations';
+
+const locations = await getActiveLocations();
+const mapLocations = locations
+  .filter((location) => typeof location.data.latitude === 'number' && typeof location.data.longitude === 'number')
+  .map((location) => ({
+    slug: location.slug,
+    name: location.data.name,
+    neighborhood: location.data.neighborhood,
+    address: formatAddress(location.data),
+    latitude: location.data.latitude!,
+    longitude: location.data.longitude!,
+    detailsUrl: '/locations/' + location.slug,
+    directionsUrl: location.data.directionsUrl
+  }));
+---
+
+<BaseLayout
+  title="Austin Puzzle Exchange | Free Puzzle Swaps Around Austin"
+  description="Find a free neighborhood puzzle swap in Austin. Take one, leave one, and meet the people who keep the pieces moving."
+  image="/images/austin-puzzle-hero.jpg"
+>
+  <section id="home" class="hero container" aria-labelledby="hero-title">
+    <div class="hero__copy">
+      <p class="eyebrow hero__eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> A free neighborhood tradition</p>
+      <h1 id="hero-title">A new puzzle is <em>closer than you think.</em></h1>
+      <p class="hero__lead">Take one. Leave one. Pass the good kind of puzzlement around Austin.</p>
+      <div class="hero__actions">
+        <a class="button button--coral" href="/locations/">Find a swap <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="/start-a-swap/">Start one in your neighborhood <span aria-hidden="true">→</span></a>
+      </div>
+      <p class="hero__footnote">No membership. No cost. Just another piece of community.</p>
+    </div>
+    <div class="hero__media">
+      <img
+        src="/images/austin-puzzle-hero.jpg"
+        alt="Jigsaw illustration of Lady Bird Lake, the Congress Avenue Bridge, and downtown Austin, with the Texas Capitol on a separate loose piece"
+        width="1672"
+        height="941"
+        fetchpriority="high"
+      />
+      <div class="hero__stamp" aria-hidden="true"><span>Made for<br />Austin<br />neighbors</span>✳</div>
+      <p class="hero__caption">One city. A thousand pieces. Endless new-to-you puzzles.</p>
+    </div>
+  </section>
+
+  <div class="marquee-band" aria-hidden="true">
+    <div class="container marquee-band__inner">
+      <span>TAKE A PUZZLE</span><span class="marquee-piece">✳</span>
+      <span>LEAVE A PUZZLE</span><span class="marquee-piece">✳</span>
+      <span>MAKE A NEIGHBOR'S DAY</span>
+    </div>
+  </div>
+
+  <section class="container how-it-works section-stack" aria-labelledby="how-title">
+    <div class="section-title">
+      <p class="eyebrow">The simple idea</p>
+      <h2 id="how-title">Good puzzles deserve <em>another round.</em></h2>
+    </div>
+    <div class="steps-grid">
+      <article><span class="step-number">01</span><h3>Find a spot</h3><p>Choose one of our neighborhood exchanges and check the host's visit notes.</p></article>
+      <article><span class="step-number">02</span><h3>Take a puzzle</h3><p>Pick something that catches your eye. There is no checkout or membership.</p></article>
+      <article><span class="step-number">03</span><h3>Keep it moving</h3><p>Bring it back when you're done, or leave another puzzle for the next person.</p></article>
+    </div>
+  </section>
+
+  <section id="locations" class="container section-stack locations-feature" aria-labelledby="locations-title">
+    <div class="section-title section-title--split">
+      <div><p class="eyebrow">The exchange directory</p><h2 id="locations-title">Find your <em>next piece.</em></h2></div>
+      <p>Small neighborhood swaps with a big idea. Each location is hosted by an Austin neighbor and free to visit.</p>
+    </div>
+    <div class="location-grid">
+      {locations.map((location, index) => (
+        <LocationTeaserCard
+          index={index + 1}
+          slug={location.slug}
+          name={location.data.name}
+          neighborhood={location.data.neighborhood}
+          schedule={location.data.schedule}
+          details={location.data.details}
+          heroImage={location.data.heroImage}
+          addressLabel={formatAddress(location.data)}
+          amenities={location.data.amenities}
+        />
+      ))}
+    </div>
+    <p class="section-endlink"><a class="text-link" href="/locations/">Explore all locations and the map <span aria-hidden="true">→</span></a></p>
+  </section>
+
+  <section class="container section-stack">
+    <LocationsMap locations={mapLocations} />
+  </section>
+
+  <section id="guidelines" class="container section-stack">
+    <div class="host-feature">
+      <div class="host-feature__symbol" aria-hidden="true">✳</div>
+      <div><p class="eyebrow">The neighborhood grows one host at a time</p><h2>Have a little space for <em>a lot of joy?</em></h2><p>A covered porch, a sturdy bench, a welcoming community center: a great exchange can start almost anywhere.</p></div>
+      <a class="button button--light" href="/start-a-swap/">How to host a swap <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="container section-stack">
+    <SocialPanel />
+  </section>
+
+  <section id="news" class="container section-stack">
+    <NewsPanel />
+  </section>
+
+  <section id="about" class="container section-stack">
+    <article class="about-splash">
+      <div class="about-splash__copy">
+        <p class="eyebrow">A story with more pieces to add</p>
+        <h2>Started at home.<br /><em>Shared with Austin.</em></h2>
+        <p>What began as a family's way to share puzzles grew into a small network of neighbor run exchanges. There is room for your neighborhood too.</p>
+        <a class="text-link" href="/about/">Meet the exchange <span aria-hidden="true">→</span></a>
+      </div>
+      <img src="/images/couple2.jpg" alt="The Austin Puzzle Exchange founders" loading="lazy" width="1024" height="1024" />
+    </article>
+  </section>
+
+  <section id="shop" class="container section-stack"><AffiliateGrid /></section>
+</BaseLayout>

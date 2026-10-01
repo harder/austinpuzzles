@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none">
+  <g stroke="currentColor" stroke-opacity="0.14" stroke-width="2">
+    <path d="M20 20h58c0-12 10-22 22-22s22 10 22 22h58v58c12 0 22 10 22 22s-10 22-22 22v58h-58c0 12-10 22-22 22s-22-10-22-22H20v-58c-12 0-22-10-22-22s10-22 22-22V20Z"/>
+    <path d="M120 20v54M120 166v54M20 120h54M166 120h54"/>
+  </g>
+</svg>
