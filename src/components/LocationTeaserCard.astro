@@ -1,5 +1,6 @@
 ---
 interface Props {
+  index?: number;
   slug: string;
   name: string;
   neighborhood: string;
@@ -10,24 +11,25 @@ interface Props {
   amenities: string[];
 }
 
-const { slug, name, neighborhood, schedule, details, heroImage, addressLabel, amenities } = Astro.props;
+const { index, slug, name, neighborhood, schedule, details, heroImage, addressLabel, amenities } = Astro.props;
 ---
 
-<article class="glass-card location-card reveal-on-scroll">
-  {heroImage && <img src={heroImage} alt={name} loading="lazy" class="location-card__image" />}
+<article class="location-card reveal-on-scroll">
+  <div class="location-card__visual">
+    {heroImage && <img src={heroImage} alt="" loading="lazy" class="location-card__image" />}
+    {index && <span class="location-card__index">{String(index).padStart(2, '0')}</span>}
+  </div>
   <div class="location-card__content">
-    <p class="location-card__neighborhood">{neighborhood}</p>
+    <p class="eyebrow location-card__neighborhood">Austin / {neighborhood}</p>
     <h3>{name}</h3>
     <p class="location-card__address">{addressLabel}</p>
     <p>{details}</p>
-    <p><strong>Hours:</strong> {schedule}</p>
+    <p class="location-card__hours"><span aria-hidden="true">◷</span> {schedule}</p>
     {amenities.length > 0 && (
       <ul class="pill-list">
-        {amenities.map((item) => (
-          <li>{item}</li>
-        ))}
+        {amenities.map((item) => <li>{item}</li>)}
       </ul>
     )}
-    <a class="button button--secondary" href={`/locations/${slug}`}>View Details</a>
+    <a class="text-link" href={'/locations/' + slug}>Visit this swap <span aria-hidden="true">→</span></a>
   </div>
 </article>

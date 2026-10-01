@@ -14,7 +14,7 @@ const {
   title,
   description = 'A free, neighborhood-driven jigsaw puzzle swap network in Austin, Texas.',
   canonical,
-  image = '/images/logo-min.jpg'
+  image = '/images/austin-puzzle-hero.jpg'
 } = Astro.props;
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
@@ -53,7 +53,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
   </head>
   <body>
     <SiteHeader />
-    <main id="top">
+    <main id="main">
       <slot />
     </main>
     <SiteFooter />
@@ -63,8 +63,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
         '#newsletter': '#social',
         '#guidelines': '#guidelines',
         '#locations': '#locations',
-        '#about': '#about',
-        '#home': '#top'
+        '#about': '#about'
       };
 
       const mappedHash = legacyHashMap[window.location.hash as keyof typeof legacyHashMap];
@@ -72,19 +71,22 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
         history.replaceState(null, '', `${window.location.pathname}${window.location.search}${mappedHash}`);
       }
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.14 }
-      );
-
-      document.querySelectorAll('.reveal-on-scroll').forEach((node) => observer.observe(node));
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08 }
+        );
+        document.querySelectorAll('.reveal-on-scroll').forEach((node) => observer.observe(node));
+      } else {
+        document.querySelectorAll('.reveal-on-scroll').forEach((node) => node.classList.add('is-visible'));
+      }
     </script>
   </body>
 </html>

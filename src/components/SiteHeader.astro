@@ -2,26 +2,24 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/locations', label: 'Locations' },
-  { href: '/social', label: 'Social' },
-  { href: '/shop', label: 'Shop' },
-  { href: '/start-a-swap', label: 'Start A Swap' },
-  { href: '/about', label: 'About' }
+  { href: '/locations/', label: 'Find a swap' },
+  { href: '/start-a-swap/', label: 'Host a swap' },
+  { href: '/about/', label: 'Our story' },
+  { href: '/social/', label: 'Community' },
+  { href: '/shop/', label: 'Shop' }
 ];
 ---
 
-<header class="site-header glass-frame">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__top"><div class="container"><span>ATX ↔ PUZZLES</span><span>A LITTLE FREE FUN, ALL AROUND AUSTIN</span></div></div>
   <div class="site-header__inner container">
     <a href="/" class="brand" aria-label="Austin Puzzle Exchange Home">
-      <img src="/images/logo-min.png" alt="Austin Puzzle Exchange logo" loading="lazy" />
-      <div>
-        <span class="brand__eyebrow">Austin, Texas</span>
-        <span class="brand__name">Austin Puzzle Exchange</span>
-      </div>
+      <span class="brand__mark" aria-hidden="true">✳</span>
+      <span class="brand__name">Austin<span>Puzzle Exchange</span></span>
     </a>
 
-    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="site-nav" aria-label="Toggle menu" aria-expanded="false">Menu <span aria-hidden="true">☰</span></button>
 
     <nav id="site-nav" class="site-nav" aria-label="Primary">
       {navLinks.map((link) => (
@@ -44,10 +42,8 @@ const navLinks = [
 
   nav?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      if (window.innerWidth < 900) {
-        nav.classList.remove('is-open');
-        menuButton?.setAttribute('aria-expanded', 'false');
-      }
+      nav.classList.remove('is-open');
+      menuButton?.setAttribute('aria-expanded', 'false');
     });
   });
 </script>

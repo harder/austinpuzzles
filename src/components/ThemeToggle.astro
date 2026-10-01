@@ -1,7 +1,7 @@
-<div class="theme-switch" role="radiogroup" aria-label="Theme mode">
-  <button class="theme-switch__option" type="button" role="radio" aria-checked="false" data-theme-mode="system">System</button>
-  <button class="theme-switch__option" type="button" role="radio" aria-checked="false" data-theme-mode="light">Light</button>
-  <button class="theme-switch__option" type="button" role="radio" aria-checked="false" data-theme-mode="dark">Dark</button>
+<div class="theme-switch" role="group" aria-label="Theme mode">
+  <button class="theme-switch__option" type="button" aria-pressed="false" data-theme-mode="system">System</button>
+  <button class="theme-switch__option" type="button" aria-pressed="false" data-theme-mode="light">Light</button>
+  <button class="theme-switch__option" type="button" aria-pressed="false" data-theme-mode="dark">Dark</button>
 </div>
 
 <script>
@@ -15,7 +15,7 @@
     document.documentElement.dataset.themeMode = mode;
 
     options.forEach((option) => {
-      option.setAttribute('aria-checked', option.dataset.themeMode === mode ? 'true' : 'false');
+      option.setAttribute('aria-pressed', option.dataset.themeMode === mode ? 'true' : 'false');
       option.classList.toggle('is-active', option.dataset.themeMode === mode);
     });
   };

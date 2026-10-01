@@ -1,37 +1,38 @@
 ---
 const items = [
   {
-    title: 'Jigsaw Puzzle Board',
-    description: 'Portable board for sorting and saving work in progress.',
+    title: 'Jigsaw puzzles',
+    description: 'Fresh challenges for puzzle nights and rainy afternoons.',
     href: 'https://amzn.to/2QJnAmf'
   },
   {
-    title: 'Kid-Friendly Puzzles',
-    description: 'Great starter options for younger puzzlers.',
+    title: 'Puzzles for kids',
+    description: 'Smaller piece counts for curious new puzzlers.',
     href: 'https://amzn.to/35F0i57'
   },
   {
-    title: '3-D Puzzle Picks',
-    description: 'Try a different challenge with dimensional builds.',
+    title: '3D puzzles',
+    description: 'A different kind of challenge when the table is full.',
     href: 'https://amzn.to/2FDU8HR'
   }
 ];
 ---
 
 <section class="affiliate-panel glass-card reveal-on-scroll" aria-labelledby="affiliate-title">
-  <h2 id="affiliate-title">Support The Exchange</h2>
-  <p class="affiliate-panel__intro">Optional affiliate links help offset site and maintenance costs.</p>
+  <p class="eyebrow">For the love of puzzles</p>
+  <h2 id="affiliate-title">Need a little <em>something extra?</em></h2>
+  <p class="affiliate-panel__intro">These optional picks can help support the exchange while you find your next challenge.</p>
   <div class="affiliate-grid">
     {items.map((item) => (
       <article class="affiliate-item">
         <h3>{item.title}</h3>
         <p>{item.description}</p>
-        <a class="button button--small" href={item.href} target="_blank" rel="sponsored noreferrer">View Item</a>
+        <a class="text-link" href={item.href} target="_blank" rel="sponsored noopener noreferrer">Browse picks <span aria-hidden="true">↗</span></a>
       </article>
     ))}
   </div>
   <div class="button-row">
-    <a class="button button--secondary button--small" href="/shop">Open Full Puzzle Shop</a>
+    <a class="button button--secondary button--small" href="/shop/">Visit the puzzle shop <span aria-hidden="true">↗</span></a>
   </div>
-  <p class="affiliate-panel__disclaimer">As an Amazon Associate, Austin Puzzle Exchange may earn from qualifying purchases.</p>
+  <p class="affiliate-panel__disclaimer">Affiliate disclosure: qualifying purchases may earn Austin Puzzle Exchange a small commission at no extra cost to you.</p>
 </section>

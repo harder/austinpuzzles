@@ -27,18 +27,7 @@ amenities:
   - Covered porch
   - Mostly weather-protected bins
   - Kid-friendly options
-inventory:
-  - title: Austin Skyline at Dusk
-    pieceCount: 1000
-    condition: Complete (self-reported)
-    notes: Scenic local-themed puzzle.
-  - title: Cat Library Chaos
-    pieceCount: 500
-    condition: Complete (self-reported)
-  - title: National Parks Panorama
-    pieceCount: 2000
-    condition: Unknown
-inventoryUpdated: "2026-02-01"
+inventory: []
 socials:
   - label: Facebook Page
     href: https://www.facebook.com/atxpuzzles
