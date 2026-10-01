@@ -3,6 +3,7 @@ name: NW Hills Puzzle Swap
 neighborhood: NW Hills
 active: true
 featured: true
+displayOrder: 2
 addressLines:
   - 7005 Northledge Dr
 city: Austin

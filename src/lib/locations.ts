@@ -2,7 +2,9 @@ import { getCollection } from 'astro:content';
 
 export async function getActiveLocations() {
   const locations = await getCollection('locations', ({ data }) => data.active);
-  return locations.sort((a, b) => a.data.name.localeCompare(b.data.name));
+  return locations.sort((a, b) =>
+    a.data.displayOrder - b.data.displayOrder || a.data.name.localeCompare(b.data.name)
+  );
 }
 
 export function formatAddress(data: {

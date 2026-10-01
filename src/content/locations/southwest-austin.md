@@ -3,6 +3,7 @@ name: Southwest Austin Puzzle Exchange
 neighborhood: Southwest Austin
 active: true
 featured: true
+displayOrder: 1
 addressLines:
   - 6302 Salcon Cliff
 city: Austin

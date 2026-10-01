@@ -8,13 +8,13 @@ Static Astro site for [austinpuzzles.com](https://austinpuzzles.com), with optio
 - Illustrated Austin puzzle hero and a responsive editorial design
 - Content collections for location pages (address, hours, notes, photos, optional inventory)
 - Interactive map with local search/filter (Leaflet + OpenStreetMap)
-- Social panel with Facebook timeline embed and Bluesky feed snippets
+- Facebook-first community panel with direct Page and Group links, plus an opt-in X timeline
 - System/light/dark theme switch with a persisted preference
 - Reduced-motion-aware page transitions
 - Affiliate support cards for puzzle gear
 - Contact form with anti-spam (honeypot + time trap + optional Turnstile verification)
 - GitHub Actions CI + GitHub Pages deploy workflows
-- Cloudflare Worker API endpoints for cached social/news fetches and Turnstile verification
+- Cloudflare Worker API endpoints for legacy optional feeds and Turnstile verification
 
 ## Stack
 
@@ -49,6 +49,8 @@ Only list actual puzzle inventory in location frontmatter. Empty inventory is ex
 
 The Austin puzzle illustration used in the homepage hero is `public/images/austin-puzzle-hero.jpg`. It was generated for this project with the built-in image generation tool, then compressed for the static site. It depicts Austin landmarks, Lady Bird Lake, live oaks, and loose jigsaw pieces in a mid-century print style. Location photos remain separate from the illustration.
 
+Social brand marks in `public/icons/social/*-brand.svg` come from [Simple Icons](https://github.com/simple-icons/simple-icons). The icon library is CC0; brand trademarks remain with their owners.
+
 ## Shop Maintenance
 
 The public shop uses manually curated links in `src/components/AffiliateGrid.astro`. Check each destination and affiliate status before publishing new links. Keep product descriptions accurate to the actual link destination.
@@ -59,8 +61,6 @@ If Amazon Creators API access is approved later, keep credentials in Cloudflare 
 
 Copy `.env.example` to `.env` and set optional values.
 
-- `PUBLIC_SOCIAL_API_URL`: Worker endpoint for social feed JSON
-- `PUBLIC_NEWS_API_URL`: Worker endpoint for puzzle news JSON
 - `PUBLIC_CONTACT_FORM_ACTION`: Contact form endpoint override
 - `PUBLIC_TURNSTILE_SITE_KEY`: Turnstile widget site key
 - `PUBLIC_TURNSTILE_VERIFY_URL`: Worker endpoint to verify Turnstile token
@@ -73,11 +73,14 @@ If `PUBLIC_SOCIAL_API_URL` and `PUBLIC_NEWS_API_URL` are not set, the site falls
 
 Worker source: `worker/src/index.ts`
 
-Endpoints:
+Active endpoint:
+
+- `POST /api/verify-turnstile` -> verifies Turnstile token with secret key
+
+Legacy endpoints still available to existing callers but not displayed by the site:
 
 - `GET /api/social` -> Bluesky feed proxy/cached response
 - `GET /api/news` -> GitHub puzzle repo activity proxy/cached response
-- `POST /api/verify-turnstile` -> verifies Turnstile token with secret key
 
 The feed endpoints accept no query parameters. The Bluesky actor is set with the Worker's `SOCIAL_ACTOR` variable, and the GitHub puzzle search is fixed so public requests share a cache key and cannot choose upstream queries.
 

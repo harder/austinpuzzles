@@ -6,6 +6,7 @@ const locationCollection = defineCollection({
     neighborhood: z.string(),
     active: z.boolean().default(true),
     featured: z.boolean().default(false),
+    displayOrder: z.number().int().default(100),
     addressLines: z.array(z.string()).default([]),
     city: z.string().default('Austin'),
     state: z.string().default('TX'),
