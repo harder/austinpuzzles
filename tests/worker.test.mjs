@@ -45,7 +45,7 @@ test('news requests use one fixed GitHub search and cache key', async () => {
     assert.equal(cacheKey, fetchedUrl);
     const url = new URL(fetchedUrl);
     assert.equal(url.hostname, 'api.github.com');
-    assert.equal(url.searchParams.get('q'), 'topic:jigsaw-puzzle OR topic:puzzle OR topic:crossword');
+    assert.equal(url.searchParams.get('q'), 'topic:jigsaw-puzzle');
     assert.equal(url.searchParams.get('per_page'), '6');
   } finally {
     globalThis.fetch = originalFetch;

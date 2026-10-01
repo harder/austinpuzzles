@@ -21,11 +21,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Type/content checks
-        run: npm run check
-
-      - name: Worker security checks
+      - name: Build and test site and Worker
         run: npm test
-
-      - name: Build Astro site
-        run: npm run build

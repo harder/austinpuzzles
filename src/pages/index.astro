@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LocationTeaserCard from '../components/LocationTeaserCard.astro';
 import LocationsMap from '../components/LocationsMap.astro';
 import SocialPanel from '../components/SocialPanel.astro';
+import NewsPanel from '../components/NewsPanel.astro';
 import AffiliateGrid from '../components/AffiliateGrid.astro';
 import { getActiveLocations, formatAddress } from '../lib/locations';
 
@@ -107,6 +108,10 @@ const mapLocations = locations
 
   <section class="container section-stack">
     <SocialPanel />
+  </section>
+
+  <section id="news" class="container section-stack">
+    <NewsPanel />
   </section>
 
   <section id="about" class="container section-stack">

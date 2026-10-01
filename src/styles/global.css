@@ -66,6 +66,8 @@ h1 em, h2 em { font-weight: inherit; color: var(--coral); }
 .button--coral:hover { background: var(--coral-dark); color: #112c2d; box-shadow: 4px 4px 0 var(--paper-bright); }
 .button--light { border-color: var(--paper); background: var(--paper); color: var(--ink-deep); }
 .button--light:hover { color: var(--ink-deep); }
+html[data-theme='dark'] .button--light,
+html[data-theme='dark'] .button--light:hover { color: var(--ink); }
 .button--secondary { border-color: var(--ink); background: transparent; color: var(--ink); }
 .button--secondary:hover { color: var(--ink); }
 .button--small { min-height: 2.5rem; padding: .4rem .8rem; }

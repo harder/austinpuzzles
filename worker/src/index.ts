@@ -9,7 +9,7 @@ interface Env {
 const JSON_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8'
 };
-const PUZZLE_NEWS_QUERY = 'topic:jigsaw-puzzle OR topic:puzzle OR topic:crossword';
+const PUZZLE_NEWS_QUERY = 'topic:jigsaw-puzzle';
 
 function allowedOrigin(request: Request, env: Env) {
   const requestOrigin = request.headers.get('Origin') || '';

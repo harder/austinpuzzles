@@ -22,7 +22,7 @@
   async function loadNews() {
     if (!newsList) return;
 
-    const fallback = 'https://api.github.com/search/repositories?q=topic:jigsaw-puzzle+OR+topic:puzzle+OR+topic:crossword&sort=updated&order=desc&per_page=6';
+    const fallback = 'https://api.github.com/search/repositories?q=topic%3Ajigsaw-puzzle&sort=updated&order=desc&per_page=6';
     try {
       const response = await fetch(workerEndpoint || fallback, {
         headers: { Accept: 'application/vnd.github+json' }

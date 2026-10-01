@@ -65,6 +65,8 @@ Copy `.env.example` to `.env` and set optional values.
 - `PUBLIC_TURNSTILE_SITE_KEY`: Turnstile widget site key
 - `PUBLIC_TURNSTILE_VERIFY_URL`: Worker endpoint to verify Turnstile token
 
+The default FormSubmit endpoint keeps its provider-side reCAPTCHA enabled. Browser-side honeypot, timing, and optional Turnstile checks are additional layers, not substitutes for server-side spam protection. Any custom `PUBLIC_CONTACT_FORM_ACTION` must enforce its own server-side checks.
+
 If `PUBLIC_SOCIAL_API_URL` and `PUBLIC_NEWS_API_URL` are not set, the site falls back to direct public APIs client-side.
 
 ## Cloudflare Worker (Optional)

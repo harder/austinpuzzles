@@ -1,4 +1,6 @@
 ---
+import { serializeJsonForHtmlScript } from '../lib/serialize';
+
 interface MapLocation {
   slug: string;
   name: string;
@@ -15,7 +17,7 @@ interface Props {
 }
 
 const { locations } = Astro.props;
-const serializedLocations = JSON.stringify(locations).replace(/</g, '\\u003c');
+const serializedLocations = serializeJsonForHtmlScript(locations);
 ---
 
 <section class="map-section reveal-on-scroll" aria-labelledby="map-title">
@@ -29,7 +31,7 @@ const serializedLocations = JSON.stringify(locations).replace(/</g, '\\u003c');
   <ul id="map-results" class="map-results" aria-live="polite"></ul>
 </section>
 
-<script is:inline type="application/json" id="map-locations-data" set:html={serializedLocations} />
+<script is:inline type="application/json" id="map-locations-data" set:html={serializedLocations}></script>
 
 <script>
   import L from 'leaflet';
