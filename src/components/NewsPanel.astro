@@ -12,6 +12,13 @@
   const newsList = document.querySelector('#repo-news');
   const workerEndpoint = import.meta.env.PUBLIC_NEWS_API_URL;
 
+  function showMessage(message: string) {
+    if (!newsList) return;
+    const item = document.createElement('li');
+    item.textContent = message;
+    newsList.replaceChildren(item);
+  }
+
   async function loadNews() {
     if (!newsList) return;
 
@@ -29,20 +36,34 @@
       const items: any[] = payload.items || payload.repositories || [];
 
       if (!items.length) {
-        newsList.innerHTML = '<li>No puzzle updates found at the moment.</li>';
+        showMessage('No puzzle updates found at the moment.');
         return;
       }
 
-      newsList.innerHTML = items
-        .slice(0, 6)
-        .map((repo: any) => {
-          const updated = repo.updated_at || repo.updatedAt;
-          const when = updated ? new Date(updated).toLocaleDateString() : 'recently';
-          return `<li><a href="${repo.html_url || repo.url}" target="_blank" rel="noreferrer">${repo.full_name || repo.name}</a><p>${repo.description || 'Puzzle-related open-source project.'}</p><span>Updated ${when}</span></li>`;
-        })
-        .join('');
+      newsList.replaceChildren(...items.slice(0, 6).map((repo: any) => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        const url = repo.html_url || repo.url;
+        if (typeof url === 'string' && /^https:\/\/github\.com\//i.test(url)) {
+          link.href = url;
+        } else {
+          link.href = 'https://github.com/topics/puzzle';
+        }
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = repo.full_name || repo.name || 'Puzzle project';
+        const description = document.createElement('p');
+        description.textContent = repo.description || 'Puzzle-related open-source project.';
+        const updated = repo.updated_at || repo.updatedAt;
+        const parsedDate = updated ? new Date(updated) : null;
+        const when = parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate.toLocaleDateString() : 'recently';
+        const date = document.createElement('span');
+        date.textContent = `Updated ${when}`;
+        item.append(link, description, date);
+        return item;
+      }));
     } catch (_error) {
-      newsList.innerHTML = '<li>Unable to load puzzle news right now.</li>';
+      showMessage('Unable to load puzzle news right now.');
     }
   }
 

@@ -15,6 +15,7 @@ interface Props {
 }
 
 const { locations } = Astro.props;
+const serializedLocations = JSON.stringify(locations).replace(/</g, '\\u003c');
 ---
 
 <section class="map-section reveal-on-scroll" aria-labelledby="map-title">
@@ -28,7 +29,7 @@ const { locations } = Astro.props;
   <ul id="map-results" class="map-results" aria-live="polite"></ul>
 </section>
 
-<script is:inline type="application/json" id="map-locations-data" set:html={JSON.stringify(locations)} />
+<script is:inline type="application/json" id="map-locations-data" set:html={serializedLocations} />
 
 <script>
   import L from 'leaflet';
@@ -74,12 +75,24 @@ const { locations } = Astro.props;
 
     const markers: MarkerLocation[] = locationData.map((item) => {
       const marker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(map);
-      marker.bindPopup(`
-        <strong>${item.name}</strong><br />
-        ${item.address}<br />
-        <a href="${item.detailsUrl}">Location details</a>
-        ${item.directionsUrl ? `<br /><a href="${item.directionsUrl}" target="_blank" rel="noreferrer">Directions</a>` : ''}
-      `);
+      const popup = document.createElement('div');
+      const name = document.createElement('strong');
+      name.textContent = item.name;
+      const address = document.createElement('span');
+      address.textContent = item.address;
+      const details = document.createElement('a');
+      details.href = item.detailsUrl;
+      details.textContent = 'Location details';
+      popup.append(name, document.createElement('br'), address, document.createElement('br'), details);
+      if (item.directionsUrl && /^https?:\/\//i.test(item.directionsUrl)) {
+        const directions = document.createElement('a');
+        directions.href = item.directionsUrl;
+        directions.target = '_blank';
+        directions.rel = 'noopener noreferrer';
+        directions.textContent = 'Directions';
+        popup.append(document.createElement('br'), directions);
+      }
+      marker.bindPopup(popup);
       return { ...item, marker };
     });
 
@@ -89,18 +102,26 @@ const { locations } = Astro.props;
     }
 
     const renderResults = (items: MarkerLocation[]) => {
-      resultList.innerHTML = '';
+      resultList.replaceChildren();
       if (!items.length) {
-        resultList.innerHTML = '<li>No matching locations found.</li>';
+        const li = document.createElement('li');
+        li.textContent = 'No matching locations found.';
+        resultList.append(li);
         return;
       }
       items.forEach((item: MarkerLocation) => {
         const li = document.createElement('li');
-        li.innerHTML = `<button type="button">${item.name} <span>${item.address}</span></button>`;
-        li.querySelector('button')?.addEventListener('click', () => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.append(document.createTextNode(`${item.name} `));
+        const address = document.createElement('span');
+        address.textContent = item.address;
+        button.append(address);
+        button.addEventListener('click', () => {
           map.setView([item.latitude, item.longitude], 14, { animate: true });
           item.marker.openPopup();
         });
+        li.append(button);
         resultList.append(li);
       });
     };

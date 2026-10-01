@@ -9,6 +9,7 @@ interface Env {
 const JSON_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8'
 };
+const PUZZLE_NEWS_QUERY = 'topic:jigsaw-puzzle OR topic:puzzle OR topic:crossword';
 
 function allowedOrigin(request: Request, env: Env) {
   const requestOrigin = request.headers.get('Origin') || '';
@@ -55,8 +56,11 @@ function jsonResponse(request: Request, env: Env, payload: unknown, status = 200
 
 async function getSocialFeed(request: Request, env: Env, ctx: ExecutionContext) {
   const url = new URL(request.url);
-  const actor = url.searchParams.get('actor') || env.SOCIAL_ACTOR || 'austinpuzzles.com';
-  const limit = Math.min(Number(url.searchParams.get('limit') || 5), 10);
+  if (url.search) {
+    return jsonResponse(request, env, { error: 'Query parameters are not supported.' }, 400);
+  }
+  const actor = env.SOCIAL_ACTOR || 'austinpuzzles.com';
+  const limit = 5;
 
   const apiUrl = `https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(actor)}&limit=${limit}`;
   const cacheKey = new Request(apiUrl);
@@ -108,10 +112,11 @@ async function getSocialFeed(request: Request, env: Env, ctx: ExecutionContext) 
 
 async function getPuzzleNews(request: Request, env: Env, ctx: ExecutionContext) {
   const url = new URL(request.url);
-  const query = url.searchParams.get('q') || 'topic:jigsaw-puzzle OR topic:puzzle OR topic:crossword';
-  const perPage = Math.min(Number(url.searchParams.get('per_page') || 6), 15);
+  if (url.search) {
+    return jsonResponse(request, env, { error: 'Query parameters are not supported.' }, 400);
+  }
 
-  const apiUrl = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}&sort=updated&order=desc&per_page=${perPage}`;
+  const apiUrl = `https://api.github.com/search/repositories?q=${encodeURIComponent(PUZZLE_NEWS_QUERY)}&sort=updated&order=desc&per_page=6`;
   const cacheKey = new Request(apiUrl);
   const cache = caches.default;
   const cached = await cache.match(cacheKey);

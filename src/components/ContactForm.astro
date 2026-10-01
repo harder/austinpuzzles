@@ -87,8 +87,12 @@ const turnstileVerifyUrl = import.meta.env.PUBLIC_TURNSTILE_VERIFY_URL;
       }
     }
 
-    if (turnstileSiteKey && turnstileVerifyUrl) {
+    if (turnstileSiteKey) {
       event.preventDefault();
+      if (!turnstileVerifyUrl) {
+        statusElement.textContent = 'Spam verification is not configured. Please try again later.';
+        return;
+      }
       statusElement.textContent = 'Verifying your submission…';
 
       try {

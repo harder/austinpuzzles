@@ -77,6 +77,8 @@ Endpoints:
 - `GET /api/news` -> GitHub puzzle repo activity proxy/cached response
 - `POST /api/verify-turnstile` -> verifies Turnstile token with secret key
 
+The feed endpoints accept no query parameters. The Bluesky actor is set with the Worker's `SOCIAL_ACTOR` variable, and the GitHub puzzle search is fixed so public requests share a cache key and cannot choose upstream queries.
+
 ### Deploy Worker
 
 ```bash
